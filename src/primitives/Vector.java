@@ -40,4 +40,10 @@ public class Vector extends Point{
         Vector v=this.scale(1/l);//Multiplication of a vector by 1 divided by its length
         return v;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
 }

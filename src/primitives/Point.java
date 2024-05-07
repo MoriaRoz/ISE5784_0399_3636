@@ -1,7 +1,10 @@
 package primitives;
 
+import java.util.Objects;
+
 public class Point {
     protected final Double3 xyz;
+    public static final Double3 ZERO = new Double3(0, 0, 0);
 
     //Constructors:
     public Point(double d1, double d2, double d3) {
@@ -33,4 +36,12 @@ public class Point {
     public String toString() {
         return this.xyz.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Point p)) return false;
+        return Objects.equals(xyz, p.xyz) ;
+    }
+
 }
