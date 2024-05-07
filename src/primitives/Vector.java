@@ -1,27 +1,66 @@
 package primitives;
 
+/**
+ * Represents a vector in 3D space.
+ */
 public class Vector extends Point{
-    //Constructors:
+    /**
+     * Constructs a new Vector instance with the given x, y, and z components.
+     * @param d1 the x-component
+     * @param d2 the y-component
+     * @param d3 the z-component
+     * @throws IllegalArgumentException if the given components represent the zero vector
+     */
     public Vector(double d1,double d2,double d3){
         super(d1,d2,d3);
         Double3 d=new Double3(d1, d2, d3);
         if(d.equals(d.ZERO))
             throw new IllegalArgumentException("This is the zero vector");
     }
+
+    /**
+     * Constructs a new Vector instance with the given Double3 components.
+     * @param d the Double3 components
+     * @throws IllegalArgumentException if the given components represent the zero vector
+     */
     public Vector(Double3 d){
         super(d);
         if(d.equals(d.ZERO))
             throw new IllegalArgumentException("This is the zero vector");
     }
+
+    /**
+     * Calculates the vector sum of this vector and the given vector.
+     * @param v the vector to add
+     * @return the vector sum
+     */
     public Vector add(Vector v){
         return new Vector(this.xyz.add(v.xyz));
     }
+
+    /**
+     * Scales this vector by the given scalar value.
+     * @param d the scalar value
+     * @return the scaled vector
+     */
     public Vector scale(double d){
         return new Vector(this.xyz.scale(d));
     }
+
+    /**
+     * Calculates the dot product of this vector and the given vector.
+     * @param v the other vector
+     * @return the dot product
+     */
     public double dotProduct(Vector v){
         return (this.xyz.d1*v.xyz.d1+this.xyz.d2*v.xyz.d2+this.xyz.d3*v.xyz.d3);
     }
+
+    /**
+     * Calculates the cross product of this vector and the given vector.
+     * @param v the other vector
+     * @return the cross product
+     */
     public Vector crossProduct(Vector v){
         double x = this.xyz.d2 * v.xyz.d3 - this.xyz.d3 * v.xyz.d2;
         double y = this.xyz.d3 * v.xyz.d1 - this.xyz.d1 * v.xyz.d3;
@@ -29,12 +68,27 @@ public class Vector extends Point{
 
         return new Vector(x, y, z);
     }
+
+    /**
+     * Calculates the squared length of this vector.
+     * @return the squared length
+     */
     public double lengthSquared(){
         return this.dotProduct(this);
     }
+
+    /**
+     * Calculates the length of this vector.
+     * @return the length
+     */
     public double length(){
         return Math.sqrt(this.lengthSquared());
     }
+
+    /**
+     * Normalizes this vector to a unit vector.
+     * @return the normalized vector
+     */
     public Vector normalize(){
         double l=this.length();
         Vector v=this.scale(1/l);//Multiplication of a vector by 1 divided by its length
@@ -45,5 +99,4 @@ public class Vector extends Point{
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
-
 }

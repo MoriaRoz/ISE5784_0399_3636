@@ -1,19 +1,22 @@
 package geometries;
 
-
 import primitives.Point;
 import primitives.Vector;
+
 /**
  Represents a plane in 3D space.
  */
 public class Plane {
+    /** A point on the plane */
     private final Point q;
+    /** The normal vector of the plane */
     private final Vector normal;
+
     /**
-     Constructs a plane passing through the given point and defined by two other points.
+     Constructs a plane defined by the point q and the vector defined by the points p1 and p2.
      @param q  the point on the plane
-     @param p1 the first point defining the plane
-     @param p2 the second point defining the plane
+     @param p1 the first point of the vector
+     @param p2 the second point of the vector
      */
     public Plane(Point q, Point p1, Point p2) {
         this.q = q;
@@ -29,6 +32,7 @@ public class Plane {
         this.q = q;
         this.normal = normal.normalize();
     }
+
     /**
      Returns the normal vector at a given point on the plane.
      @param p the point on the plane
@@ -37,6 +41,7 @@ public class Plane {
     public Vector getNormal(Point p) {
         return normal;
     }
+
     /**
      Returns the normal vector of the plane.
      @return the normal vector of the plane
