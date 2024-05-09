@@ -1,3 +1,12 @@
+/**
+ * Shira Bodenheimer
+ * 213173636
+ * Shirabod1@gmail.com
+
+ * Moria Rozenfeld
+ * 212940399
+ * ruznurhv@gmail.com
+ */
 package test;
 
 import static java.lang.System.out;

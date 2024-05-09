@@ -9,7 +9,7 @@ public class Point {
     /** x,y,z is the coordinates of the point */
     protected final Double3 xyz;
     /** A constant representing the zero point (0, 0, 0) */
-    public static final Double3 ZERO = new Double3(0, 0, 0);
+    public static final Point ZERO = new Point(Double3.ZERO);
 
     /**
      * Constructs a new Point instance with the given x, y, and z coordinates.
