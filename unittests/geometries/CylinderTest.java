@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CylinderTest {
+public class CylinderTest {
 
     @Test
-    void getNormal() {
+   public void getNormal() {
     }
 }
