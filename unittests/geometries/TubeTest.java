@@ -1,6 +1,9 @@
 package geometries;
 
 import org.junit.jupiter.api.Test;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +19,13 @@ class TubeTest {
      */
     @Test
     void testGetNormal() {
-        // Implement test cases for the getNormal method here
+        // ============ Equivalence Partitions Tests ==============
+
+        Point head=new Point(0,0,0);
+        Vector direction= new Vector(1,0,0);
+
+        Tube t=new Tube(3,new Ray(head,direction));
+
+//        Vector result=t.getNormal();
     }
 }
