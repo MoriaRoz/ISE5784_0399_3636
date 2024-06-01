@@ -27,6 +27,7 @@ class VectorTest {
 
         assertEquals(expected, result, "The add between two vectors isn't working");
 
+        //להוריד?
         //T2: Two opposite vectors (not same length)
         v2=new Vector(-10,-20,-30);
         result = v1.add(v2);

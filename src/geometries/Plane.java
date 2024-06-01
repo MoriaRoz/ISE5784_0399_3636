@@ -19,8 +19,21 @@ public class Plane {
      @param p2 the second point of the vector
      */
     public Plane(Point q, Point p1, Point p2) {
+        if (p1.equals(p2)||p1.equals(q)||p2.equals(q))
+            throw new IllegalArgumentException("Two points are the same");
+
+        double disP1P2=p1.distance(p2);
+        double disP1Q=p1.distance(q);
+        double disP2Q=p2.distance(q);
+        boolean sameLine=(disP1P2+disP1Q==disP2Q)||(disP1P2+disP2Q==disP1Q)||(disP1Q+disP2Q==disP1P2);
+        if(sameLine)
+            throw new IllegalArgumentException("The points are on the same line");
+
         this.q = q;
-        this.normal = null;
+
+        Vector v1 = p1.subtract(q);
+        Vector v2 = p2.subtract(q);
+        this.normal = v1.crossProduct(v2).normalize();
     }
 
     /**
@@ -38,16 +51,12 @@ public class Plane {
      @param p the point on the plane
      @return the normal vector at the given point
      */
-    public Vector getNormal(Point p) {
-        return normal;
-    }
+    public Vector getNormal(Point p) {return normal;}
 
     /**
      Returns the normal vector of the plane.
      @return the normal vector of the plane
      */
-    public Vector getNormal() {
-        return normal;
-    }
+    public Vector getNormal() {return normal;}
 }
 

@@ -17,6 +17,20 @@ class CylinderTest {
      */
     @Test
     void testGetNormal() {
-        // Implement the test cases for getNormal method here
+        // Test case 1: Test the getNormal method for a point on the cylinder's side surface.
+        Cylinder cylinder = new Cylinder(1, 1, 1);
+        Point point = new Point(1, 0, 1);
+        assertEquals(new Point(1, 0, 0), cylinder.getNormal(point),
+                "getNormal() did not return the correct normal vector for a point on the cylinder's side surface.");
+
+        // Test case 2: Test the getNormal method for a point on the cylinder's top surface.
+        point = new Point(1, 0, 2);
+        assertEquals(new Point(0, 0, 1), cylinder.getNormal(point),
+                "getNormal() did not return the correct normal vector for a point on the cylinder's top surface.");
+
+        // Test case 3: Test the getNormal method for a point on the cylinder's bottom surface.
+        point = new Point(1, 0, 0);
+        assertEquals(new Point(0, 0, -1), cylinder.getNormal(point),
+                "getNormal() did not return the correct normal vector for a point on the cylinder's bottom surface.");
     }
 }

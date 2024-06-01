@@ -27,6 +27,17 @@ public class Tube extends RadialGeometry{
      * @return the normal vector at the given point
      */
     public Vector getNormal(Point p) {
-        return null;
+
+        // The vector from the head of the axis ray to the given point
+        Vector v = p.subtract(axis.getHead());
+
+        // The projection of the vector v on the axis ray
+        double t = axis.getDirection().dotProduct(v);
+
+        // The point on the axis ray that is closest to the given point
+        Point o = axis.getHead().add(axis.getDirection().scale(t));
+
+        // The normal vector at the given point
+        return p.subtract(o).normalize();
     }
 }

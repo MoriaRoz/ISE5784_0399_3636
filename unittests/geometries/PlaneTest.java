@@ -12,9 +12,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class PlaneTest {
 
+    /**
+     * Test method for {@link Plane#Plane(Point, Point, Point)}.
+     * This method tests the constructor of the Plane class to ensure it constructs a plane
+     * with three different points.
+     */
     @Test
-    void constractorTest(){
-        //לבדוק אם 2 הנקודוצ מתלכדות ואם 3  על אותו ישר
+    void constructorTest(){
+        // =============== Boundary Values Tests ==================
+
+        //T1: check if the points are different
+        assertDoesNotThrow(() -> new Plane(new Point(0, 0, 1),
+                        new Point(1, 0, 0),
+                        new Point(1, 0, 0)),
+                "Failed constructing a correct Plane- 2 points are the same");
+
+        //T2: check if the points are different
+        assertDoesNotThrow(() -> new Plane(new Point(1, 0, 0),
+                        new Point(2, 0, 0),
+                        new Point(3, 0, 0)),
+                "Failed constructing a correct Plane- 3 points are in the same line");
     }
 
     /**
@@ -43,4 +60,12 @@ class PlaneTest {
         //T2: check if the direction is the same
         assertEquals(Point.ZERO,result.crossProduct(expected),"The getNormal on plane isn't working- not in the same direction");
     }
+
+//   @Test
+//    void testGetNormal(Point p){
+//        // ============ Equivalence Partitions Tests ==============
+//        //T1: check if the normal is correct
+//        Plane pl=new Plane(new Point(1,0,0),new Point(0,1,0),new Point(0,0,1));
+//        assertEquals(new Vector(1,1,1).normalize(),pl.getNormal(),"The getNormal on plane isn't working- not in the same direction");
+//    }
 }

@@ -23,9 +23,20 @@ class TubeTest {
 
         Point head=new Point(0,0,0);
         Vector direction= new Vector(1,0,0);
+        Point p=new Point(1,3,0);
 
         Tube t=new Tube(3,new Ray(head,direction));
+        Vector result = t.getNormal(p);
+        Vector expected=p.subtract(new Point(1,0,0)).normalize();
 
-//        Vector result=t.getNormal();
+        //T1: Point on the tube's surface
+        assertEquals(expected, result, "The normal to the tube is not correct");
+
+        // =============== Boundary Values Tests ==================
+        p=new Point(3,0,0);
+        result = t.getNormal(p);
+        expected=p.subtract(head).normalize();
+        //T2: Point in front of the head ray
+        assertEquals(expected, result, "The normal to the tube is not correct- point in front of the head ray");
     }
 }
