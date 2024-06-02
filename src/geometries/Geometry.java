@@ -3,10 +3,8 @@ package geometries;
 import primitives.Point;
 import primitives.Vector;
 
-/**
- *An interface representing a geometric object in 3D space
- */
-public interface Geometry {
+/** An interface representing a geometric object in 3D space */
+public interface Geometry extends Intersectable {
 
     /**
      *Returns the normal vector at a given point on the geometry.

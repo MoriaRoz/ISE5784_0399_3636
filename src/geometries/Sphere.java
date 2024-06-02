@@ -2,10 +2,10 @@ package geometries;
 
 import primitives.Point;
 import primitives.Vector;
+import primitives.Ray;
+import java.util.List;
 
-/**
- * A class representing a sphere in 3D space.
- */
+/** A class representing a sphere in 3D space */
 public class Sphere extends RadialGeometry{
     /** The center point of the sphere */
      private  final Point center;
@@ -27,5 +27,9 @@ public class Sphere extends RadialGeometry{
      */
     public Vector getNormal(Point p) {
         return p.subtract(center).normalize();
+    }
+
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

@@ -7,9 +7,7 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Unit test class for {@link Plane}.
- */
+/** Unit test class for {@link Plane} */
 class PlaneTest {
 
     /**
@@ -18,17 +16,17 @@ class PlaneTest {
      * with three different points.
      */
     @Test
-    void constructorTest(){
+    void testConstructor(){
         // =============== Boundary Values Tests ==================
 
         //T1: check if the points are different
-        assertDoesNotThrow(() -> new Plane(new Point(0, 0, 1),
+        assertThrows(IllegalArgumentException.class,() -> new Plane(new Point(0, 0, 1),
                         new Point(1, 0, 0),
                         new Point(1, 0, 0)),
                 "Failed constructing a correct Plane- 2 points are the same");
 
         //T2: check if the points are different
-        assertDoesNotThrow(() -> new Plane(new Point(1, 0, 0),
+        assertThrows(IllegalArgumentException.class,() -> new Plane(new Point(1, 0, 0),
                         new Point(2, 0, 0),
                         new Point(3, 0, 0)),
                 "Failed constructing a correct Plane- 3 points are in the same line");
@@ -56,16 +54,11 @@ class PlaneTest {
         Vector result= pl.getNormal();
 
         //T1: check if length=1
-        assertEquals(1, result.length(), "The getNormal on plane isn't working- not of length 1");
-        //T2: check if the direction is the same
-        assertEquals(Point.ZERO,result.crossProduct(expected),"The getNormal on plane isn't working- not in the same direction");
-    }
+        assertEquals(1, result.length(),
+                "The getNormal on plane isn't working- not of length 1");
 
-//   @Test
-//    void testGetNormal(Point p){
-//        // ============ Equivalence Partitions Tests ==============
-//        //T1: check if the normal is correct
-//        Plane pl=new Plane(new Point(1,0,0),new Point(0,1,0),new Point(0,0,1));
-//        assertEquals(new Vector(1,1,1).normalize(),pl.getNormal(),"The getNormal on plane isn't working- not in the same direction");
-//    }
+        //T2: check if the direction is the same
+        assertThrows(IllegalArgumentException.class, () -> result.crossProduct(expected),
+                "The getNormal on plane isn't working- not in the same direction");
+    }
 }

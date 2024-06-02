@@ -3,13 +3,15 @@ package geometries;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Vector;
+import primitives.Ray;
 
+import java.util.Comparator;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Unit test class for {@link Sphere}.
- */
+/** Unit tests class for {@link Sphere} */
 class SphereTest {
+    private final double DELTA = 0.000001;
 
     /**
      * Test method for {@link Sphere#getNormal(primitives.Point)}.
@@ -28,8 +30,11 @@ class SphereTest {
         Vector expected=(p.subtract(center));
 
         //T1: check if length=1
-        assertEquals(1, result.length(), "The getNormal on sphere isn't working- not of length 1");
+        assertEquals(1, result.length(),
+                "The getNormal on sphere isn't working- not of length 1");
+
         //T2: check if the direction is the same
-        assertEquals(Point.ZERO,result.crossProduct(expected),"The getNormal on sphere isn't working- not in the direction of the point");
+        assertThrows(IllegalArgumentException.class, () -> result.crossProduct(expected),
+                "The getNormal on sphere isn't working- not in the direction of the point");
     }
 }

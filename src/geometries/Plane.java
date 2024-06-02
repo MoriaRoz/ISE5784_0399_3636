@@ -2,10 +2,10 @@ package geometries;
 
 import primitives.Point;
 import primitives.Vector;
+import primitives.Ray;
+import java.util.List;
 
-/**
- Represents a plane in 3D space.
- */
+/** Represents a plane in 3D space.*/
 public class Plane {
     /** A point on the plane */
     private final Point q;
@@ -58,5 +58,10 @@ public class Plane {
      @return the normal vector of the plane
      */
     public Vector getNormal() {return normal;}
+
+
+    public List<Point> findIntersections(Ray ray) {
+        return null;
+    }
 }
 

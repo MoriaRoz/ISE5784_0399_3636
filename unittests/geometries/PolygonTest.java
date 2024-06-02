@@ -69,7 +69,7 @@ public class PolygonTest {
 
     /** Test method for {@link geometries.Polygon#getNormal(primitives.Point)}. */
     @Test
-    public void testGetNormal() {
+    public void testGetNormal(){
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here - using a quad
         Point[] pts =

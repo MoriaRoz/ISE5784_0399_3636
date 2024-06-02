@@ -7,9 +7,7 @@ import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Unit test class for {@link Tube}.
- */
+/** Unit test class for {@link Tube} */
 class TubeTest {
 
     /**
@@ -26,17 +24,20 @@ class TubeTest {
         Point p=new Point(1,3,0);
 
         Tube t=new Tube(3,new Ray(head,direction));
+
+        //T1: Point on the tube's surface
         Vector result = t.getNormal(p);
         Vector expected=p.subtract(new Point(1,0,0)).normalize();
 
-        //T1: Point on the tube's surface
-        assertEquals(expected, result, "The normal to the tube is not correct");
+        assertEquals(expected, result,
+                "The normal to the tube is not correct");
 
         // =============== Boundary Values Tests ==================
-        p=new Point(3,0,0);
-        result = t.getNormal(p);
-        expected=p.subtract(head).normalize();
+
         //T2: Point in front of the head ray
-        assertEquals(expected, result, "The normal to the tube is not correct- point in front of the head ray");
+        Point point=new Point(3,0,0);
+
+        assertThrows(IllegalArgumentException.class, () -> t.getNormal(point),
+                "The normal to the tube is not correct- point in front of the head ray");
     }
 }

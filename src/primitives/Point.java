@@ -44,6 +44,8 @@ public class Point {
      * @return the new point resulting from the addition
      */
     public Point add(Vector v){
+        if(v.equals(Vector.ZERO))
+            throw new IllegalArgumentException("Adding zero vector does not throw an exception");
         return new Point(this.xyz.add(v.xyz));
     }
 
