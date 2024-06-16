@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  Represents a cylinder in 3D space.
  */
@@ -28,6 +30,11 @@ public class Cylinder extends Tube {
      @return the normal vector at the given point
      */
     public Vector getNormal(Point p) {
+        return null;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
         return null;
     }
 }

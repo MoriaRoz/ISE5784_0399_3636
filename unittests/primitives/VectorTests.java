@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /** Unit tests class for {@link Vector} */
-class VectorTest {
+class VectorTests {
 
     private final double DELTA = 0.000001;
     Point Zero=new Point(0,0,0);

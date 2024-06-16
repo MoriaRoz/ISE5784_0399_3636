@@ -3,6 +3,7 @@ package geometries;
 import primitives.Point;
 import primitives.Vector;
 import primitives.Ray;
+import static primitives.Util.*;
 import java.util.List;
 
 /** Represents a plane in 3D space.*/
@@ -59,9 +60,31 @@ public class Plane {
      */
     public Vector getNormal() {return normal;}
 
-
+    /**
+     Finds the intersection points of the plane with the given ray.
+     @param ray the ray to find the intersection points with
+     @return the intersection points of the plane with the ray
+     */
     public List<Point> findIntersections(Ray ray) {
-        return null;
+        Vector n = getNormal();
+        Point q0 = ray.getHead();
+        Vector v = ray.getDirection();
+
+        double nv = n.dotProduct(v);
+        if (isZero(nv))//ray is parallel to the plane
+            return null;
+        double nq0=0;
+        try {
+            nq0 = n.dotProduct(q0.subtract(this.q));
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+        double t = alignZero(-nq0 / nv);
+        if (t <= 0) //ray starts after the plane
+            return null;
+
+        Point p = q0.add(v.scale(t));
+        return List.of(p);
     }
 }
 

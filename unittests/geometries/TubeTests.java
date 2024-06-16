@@ -8,7 +8,7 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
 
 /** Unit test class for {@link Tube} */
-class TubeTest {
+class TubeTests {
 
     /**
      * Test method for {@link Tube#getNormal(primitives.Point)}.

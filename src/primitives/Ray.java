@@ -1,6 +1,7 @@
 package primitives;
 
 import java.util.Objects;
+import static primitives.Util.*;
 
 /**
  * Represents a ray in 3D space.
@@ -49,5 +50,16 @@ public class Ray {
         return "Ray:\n" +
                 "head=" + head +
                 "\ndirection=" + direction;
+    }
+
+    /**
+     * Returns the point on the ray at a given distance from the head.
+     * @param t the distance from the head
+     * @return the point on the ray at the given distance
+     */
+    public Point getPoint(double t) {
+        if (isZero(t))
+            return head;
+        return head.add(direction.scale(t));
     }
 }
