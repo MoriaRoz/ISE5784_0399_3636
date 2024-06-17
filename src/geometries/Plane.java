@@ -6,8 +6,10 @@ import primitives.Ray;
 import static primitives.Util.*;
 import java.util.List;
 
-/** Represents a plane in 3D space.*/
-public class Plane {
+/**
+ * Represents a plane in 3D space.
+ */
+public class Plane implements Intersectable{
     /** A point on the plane */
     private final Point q;
     /** The normal vector of the plane */

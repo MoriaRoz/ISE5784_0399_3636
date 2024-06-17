@@ -146,7 +146,8 @@ class VectorTests {
         v2 = new Vector(4, 5, 6);
 
         Vector result = v1.crossProduct(v2);
-        Vector expected = new Vector((v1.xyz.d2 * v2.xyz.d3 - v1.xyz.d3 * v2.xyz.d2),
+        Vector expected = new Vector(
+                (v1.xyz.d2 * v2.xyz.d3 - v1.xyz.d3 * v2.xyz.d2),
                 (v1.xyz.d3 * v2.xyz.d1 - v1.xyz.d1 * v2.xyz.d3),
                 (v1.xyz.d1 * v2.xyz.d2 - v1.xyz.d2 * v2.xyz.d1));
 
@@ -225,6 +226,11 @@ class VectorTests {
                                    v1.xyz.d2/vLength,
                                    v1.xyz.d3/vLength);
 
+        assertEquals(
+                1.0d,
+                result.length(),
+                DELTA,
+                "The length of the normalized vector is not 1");
         assertEquals(expected, result,
                 "The normalize on vector of of length!=1 is incorrect");
 
