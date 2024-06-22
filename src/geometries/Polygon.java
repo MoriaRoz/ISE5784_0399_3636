@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.Comparator;
 import java.util.List;
 import static primitives.Util.*;
 import primitives.Point;
@@ -78,17 +79,14 @@ public class Polygon implements Geometry {
       }
    }
 
-    /**
-     * @return the vertices
-     */
+    /** @return the vertices */
    @Override
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
    /**
     * Find intersections of the ray with the polygon
     * @param incomingRay the ray
-    * @return List of intersections points, or null if there are no intersections
-    */
+    * @return List of intersections points, or null if there are no intersections */
    @Override
    public List<Point> findIntersections(Ray incomingRay) {
       Point rayOrigin = incomingRay.getHead();      // Starting point of the ray

@@ -25,11 +25,7 @@ class VectorTests {
                 "Creating the zero vector does not throw an exception");
     }
 
-    /**
-     * Test method for {@link Vector#add(Vector)}
-     * This test checks the correctness of the vector addition operation.
-     * It includes both equivalence partition tests and boundary value tests.
-     */
+    /** Test method for {@link Vector#add(Vector)} */
     @Test
     void testAdd() {
         // ============ Equivalence Partitions Tests ==============
@@ -66,10 +62,7 @@ class VectorTests {
                     "Adding zero vector does not throw an exception");
     }
 
-    /**
-     * Test method for {@link Vector#scale(double)}
-     * This test checks the correctness of the vector scaling operation by a scalar.
-     */
+    /** Test method for {@link Vector#scale(double)} */
     @Test
     void testScale() {
         // ============ Equivalence Partitions Tests ==============
@@ -101,13 +94,7 @@ class VectorTests {
                 "Scale zero vector does not throw an exception");
     }
 
-    /**
-     * Test method for {@link Vector#dotProduct(Vector)}
-     * This test checks the correctness of the dot product operation.
-     * <p>
-     * The dot product of two vectors v1 and v2 is defined as:
-     * v1.x * v2.x + v1.y * v2.y + v1.z * v2.z
-     */
+    /** Test method for {@link Vector#dotProduct(Vector)} */
     @Test
     void testDotProduct() {
         // ============ Equivalence Partitions Tests ==============
@@ -135,10 +122,7 @@ class VectorTests {
                 "The dot product between two vertical vectors isn't working");
     }
 
-    /**
-     * Test method for {@link Vector#crossProduct(Vector)}
-     * This test checks the correctness of the cross product operation.
-     */
+    /** Test method for {@link Vector#crossProduct(Vector)} */
     @Test
     void testCrossProduct() {
         // ============ Equivalence Partitions Tests ==============
@@ -170,10 +154,7 @@ class VectorTests {
                 "Cross product with parallel vectors does not throw an exception");
     }
 
-    /**
-     * Test method for {@link Vector#lengthSquared()}
-     * This test checks the correctness of the squared length calculation of a vector.
-     */
+    /** Test method for {@link Vector#lengthSquared()} */
     @Test
     void testLengthSquared() {
         // ============ Equivalence Partitions Tests ==============
@@ -188,10 +169,7 @@ class VectorTests {
                 "The length squared of the vector is incorrect");
     }
 
-    /**
-     * Test method for {@link Vector#length()}
-     * This test checks the correctness of the length calculation of a vector.
-     */
+    /** Test method for {@link Vector#length()} */
     @Test
     void testLength() {
         // ============ Equivalence Partitions Tests ==============
@@ -206,10 +184,7 @@ class VectorTests {
                 "The length of the vector is incorrect");
     }
 
-    /**
-     * Test method for {@link Vector#normalize()}
-     * This test checks the correctness of the vector normalization operation.
-     */
+    /** Test method for {@link Vector#normalize()} */
     @Test
     void testNormalize() {
         // ============ Equivalence Partitions Tests ==============

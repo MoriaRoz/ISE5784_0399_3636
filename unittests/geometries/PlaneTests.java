@@ -4,22 +4,14 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Unit test class for {@link Plane}
- */
+/** Unit test class for {@link Plane} */
 class PlaneTests {
 
-    /**
-     * Test method for {@link Plane#Plane(Point, Point, Point)}.
-     * This method tests the constructor of the Plane class to ensure it constructs a plane
-     * with three different points.
-     */
+    /** Test method for {@link Plane#Plane(Point, Point, Point)} */
     @Test
     void testConstructor() {
         // =============== Boundary Values Tests ==================
@@ -37,11 +29,7 @@ class PlaneTests {
                 "Failed constructing a correct Plane- 3 points are in the same line");
     }
 
-    /**
-     * Additional test method for {@link Plane#getNormal()}.
-     * This method provides additional test cases for the getNormal method
-     * of the Plane class to further ensure its correctness.
-     */
+    /** Test method for {@link Plane#getNormal()} */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -67,11 +55,7 @@ class PlaneTests {
                 "The getNormal on plane isn't working- not in the same direction");
     }
 
-    /**
-     * Test method for {@link Plane#findIntersections(primitives.Ray)}.
-     * This method tests the findIntersections method of the Plane class
-     * to ensure it returns the correct intersection points with a given ray.
-     */
+    /** Test method for {@link Plane#findIntersections(primitives.Ray)} */
     @Test
     void findIntersections() {
         final Point p000 = new Point(0, 0, 0);

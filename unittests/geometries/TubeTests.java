@@ -10,11 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /** Unit test class for {@link Tube} */
 class TubeTests {
 
-    /**
-     * Test method for {@link Tube#getNormal(primitives.Point)}.
-     * This method tests the getNormal method of the Tube class
-     * to ensure it returns the correct normal vector at a given point on the tube's surface.
-     */
+    /** Test method for {@link Tube#getNormal(primitives.Point)} */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============

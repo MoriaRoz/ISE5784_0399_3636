@@ -1,11 +1,10 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 import static primitives.Util.*;
 
-/**
- * Represents a ray in 3D space.
- */
+/** Represents a ray in 3D space */
 public class Ray {
     /** The head (starting point) of the ray */
     private Point head;
@@ -15,8 +14,7 @@ public class Ray {
     /**
      * Constructs a new Ray instance with the given head and direction.
      * @param head      the head (starting point) of the ray
-     * @param direction the direction vector of the ray
-     */
+     * @param direction the direction vector of the ray */
     public Ray(Point head, Vector direction) {
         this.head = head;
         this.direction = direction.normalize();
@@ -24,16 +22,14 @@ public class Ray {
 
     /**
      * Returns the head (starting point) of the ray.
-     * @return the head of the ray
-     */
+     * @return the head of the ray */
     public Point getHead() {
         return head;
     }
 
     /**
      * Returns the direction vector of the ray.
-     * @return the direction of the ray
-     */
+     * @return the direction of the ray */
     public Vector getDirection() {
         return direction;
     }
@@ -55,11 +51,30 @@ public class Ray {
     /**
      * Returns the point on the ray at a given distance from the head.
      * @param t the distance from the head
-     * @return the point on the ray at the given distance
-     */
+     * @return the point on the ray at the given distance */
     public Point getPoint(double t) {
         if (isZero(t))
             return head;
         return head.add(direction.scale(t));
     }
+
+    /**
+     * Finds the closest point to the head of the ray from a list of points.
+     * @param points the list of points
+     * @return the closest point to the head of the ray */
+    public Point findClosestPoint(List<Point> points) {
+        if (points == null)
+            return null;
+        Point result = null;
+        double minDistance = Double.POSITIVE_INFINITY;
+        for (Point point : points) {
+            double distance = head.distanceSquared(point);
+            if (distance < minDistance) {
+                minDistance = distance;
+                result = point;
+            }
+        }
+        return result;
+    }
+
 }

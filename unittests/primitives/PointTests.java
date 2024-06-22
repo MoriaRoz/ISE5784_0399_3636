@@ -11,11 +11,7 @@ class PointTests {
     Point p2;
     Point Zero=new Point(0,0,0);
 
-    /**
-     * Test method for {@link Point#subtract(Point)}.
-     * This method tests the subtract method of the Point class
-     * to ensure it correctly subtracts another point.
-     */
+    /** Test method for {@link Point#subtract(Point)} */
     @Test
     void testSubtract() {
         // ============ Equivalence Partitions Tests ==============
@@ -40,11 +36,7 @@ class PointTests {
                 "Subtracting two same points does not throw an exception");
     }
 
-    /**
-     * Test method for {@link Point#add(Vector)}.
-     * This method tests the add method of the Point class
-     * to ensure it correctly adds a vector.
-     */
+    /** Test method for {@link Point#add(Vector)} */
     @Test
     void testAdd() {
         // ============ Equivalence Partitions Tests ==============
@@ -75,11 +67,7 @@ class PointTests {
                 "The add between vector opposite to a point isn't working");
     }
 
-    /**
-     * Test method for {@link Point#distanceSquared(Point)}.
-     * This method tests the distanceSquared method of the Point class
-     * to ensure it correctly calculates the squared distance between two points.
-     */
+    /** Test method for {@link Point#distanceSquared(Point)} */
     @Test
     void testDistanceSquared() {
         // ============ Equivalence Partitions Tests ==============
@@ -108,11 +96,7 @@ class PointTests {
                 "The distanceSquared between 2 same points isn't working");
     }
 
-    /**
-     * Test method for {@link Point#distance(Point)}.
-     * This method tests the distance method of the Point class
-     * to ensure it correctly calculates the distance between two points.
-     */
+    /** Test method for {@link Point#distance(Point)} */
     @Test
     void testDistance() {
         // ============ Equivalence Partitions Tests ==============

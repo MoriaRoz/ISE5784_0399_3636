@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
+/** Unit tests class for {@link Triangle} */
 public class TriangleTests {
 
+    /** Test method for {@link Triangle#Triangle(Point, Point, Point)} */
     @Test
     void testConstructor() {
         // =============== Boundary Values Tests ==================
@@ -28,6 +29,7 @@ public class TriangleTests {
 
     }
 
+    /** Test method for {@link Triangle#getNormal(Point)} */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -54,6 +56,7 @@ public class TriangleTests {
 
     }
 
+    /** Test method for {@link Triangle#findIntersections(Ray)} */
     @Test
     void testFindIntersections() {
         final Point p_0$5_0$50=new Point(-0.5,-0.5,0);

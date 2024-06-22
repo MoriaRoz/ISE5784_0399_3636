@@ -4,23 +4,15 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Vector;
 import primitives.Ray;
-
 import java.util.List;
 import java.util.Comparator;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Unit tests class for {@link Sphere}
- */
+/** Unit tests class for {@link Sphere}v*/
 class SphereTests {
     private final double DELTA = 0.000001;
 
-    /**
-     * Test method for {@link Sphere#getNormal(primitives.Point)}.
-     * This method tests the getNormal method of the Sphere class
-     * to ensure it returns the correct normal vector at a given point on the sphere's surface.
-     */
+    /** Test method for {@link Sphere#getNormal(primitives.Point)} */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -45,11 +37,7 @@ class SphereTests {
     private final Point p100 = new Point(1, 0, 0);
     private final Vector v001 = new Vector(0, 0, 1);
 
-    /**
-     * Test method for {@link Sphere#findIntersections(Ray)}.
-     * This method tests the findIntersections method of the Sphere class
-     * to ensure it returns the correct intersection points of a given ray with the sphere.
-     */
+    /** Test method for {@link Sphere#findIntersections(Ray)} */
     @Test
     public void testFindIntersections() {
         Sphere sphere = new Sphere(1d, p100);
@@ -87,7 +75,6 @@ class SphereTests {
         final var exp3 = List.of(p000);
         assertEquals(1, result3.size(), "Wrong number of points");
         assertEquals(exp3, result3, "Ray starts inside the sphere");
-
 
         // T4: Ray starts after the sphere (0 points)
         final var result4 = sphere.findIntersections(new Ray(p001, v001));

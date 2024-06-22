@@ -7,7 +7,10 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/** Unit tests class for {@link Geometries} */
 public class GeometriesTests {
+
+    /** Test method for {@link Geometries#findIntersections(Ray)} */
     @Test
     void testFindIntersections() {
         final Vector v001 = new Vector(0, 0, 1);
