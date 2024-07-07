@@ -1,14 +1,17 @@
 package geometries;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import primitives.Ray;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testing Polygons
+ *
  * @author Dan
  */
 public class PolygonTests {
@@ -18,7 +21,9 @@ public class PolygonTests {
      */
     private final double DELTA = 0.000001;
 
-    /** Test method for {@link geometries.Polygon#Polygon(primitives.Point...)}. */
+    /**
+     * Test method for {@link geometries.Polygon#Polygon(primitives.Point...)}.
+     */
     @Test
     public void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
@@ -66,13 +71,15 @@ public class PolygonTests {
 
     }
 
-    /** Test method for {@link geometries.Polygon#getNormal(primitives.Point)}. */
+    /**
+     * Test method for {@link geometries.Polygon#getNormal(primitives.Point)}.
+     */
     @Test
-    public void testGetNormal(){
+    public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here - using a quad
         Point[] pts =
-                { new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0), new Point(-1, 1, 1) };
+                {new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0), new Point(-1, 1, 1)};
         Polygon pol = new Polygon(pts);
         // ensure there are no exceptions
         assertDoesNotThrow(() -> pol.getNormal(new Point(0, 0, 1)), "");
@@ -86,10 +93,12 @@ public class PolygonTests {
                     "Polygon's normal is not orthogonal to one of the edges");
     }
 
-    /** Test method for {@link geometries.Polygon#findIntersections(primitives.Ray)}. */
+    /**
+     * Test method for {@link geometries.Polygon#findIntersections(primitives.Ray)}.
+     */
     @Test
     public void testFindIntersections() {
-        final Point p110= new Point(1, 1, 0);
+        final Point p110 = new Point(1, 1, 0);
         final Point p_1_1_0 = new Point(-1, -1, 0);
         final Point p_110 = new Point(-1, 1, 0);
         final Point p1_10 = new Point(1, -1, 0);
@@ -104,30 +113,30 @@ public class PolygonTests {
 
         // ============ Equivalence Partitions Tests ==============
         //T1: Ray intersects inside the polygon(1 point)
-        final var result1= polygon.findIntersections(new Ray(new Point(0,0,-1), v001));
+        final var result1 = polygon.findIntersections(new Ray(new Point(0, 0, -1), v001));
         final var exp1 = List.of(p000);
         assertEquals(1, result1.size(), "Wrong number of points");
         assertEquals(exp1, result1, "Wrong intersection with polygon");
 
         //T2: Ray intersects outside the polygon opposite the side of the polygon(0 points)
-        final var result2= polygon.findIntersections(new Ray(new Point(2,0,-1), v001));
+        final var result2 = polygon.findIntersections(new Ray(new Point(2, 0, -1), v001));
         assertNull(result2, "Ray intersects outside the polygon opposite the side of the polygon");
 
         //T3: Ray intersects outside the polygon opposite the vertex of the polygon(0 points)
-        final var result3= polygon.findIntersections(new Ray(new Point(2,2,-1), v001));
+        final var result3 = polygon.findIntersections(new Ray(new Point(2, 2, -1), v001));
         assertNull(result3, "Ray intersects outside the polygon opposite the vertex of the polygon");
 
         // =============== Boundary Values Tests ==================
         //T4: Ray intersects on the side of the polygon(0 points)
-        final var result4= polygon.findIntersections(new Ray(new Point(1,0,-1), v001));
+        final var result4 = polygon.findIntersections(new Ray(new Point(1, 0, -1), v001));
         assertNull(result4, "Ray intersects on the side of the polygon");
 
         //T5: Ray intersects on the vertex of the polygon(0 points)
-        final var result5= polygon.findIntersections(new Ray(new Point(1,1,-1), v001));
+        final var result5 = polygon.findIntersections(new Ray(new Point(1, 1, -1), v001));
         assertNull(result5, "Ray intersects on the vertex of the polygon");
 
         //T6: Ray intersects in continuation of the side of the polygon(0 points)
-        final var result6= polygon.findIntersections(new Ray(new Point(2,1,-1), v001));
+        final var result6 = polygon.findIntersections(new Ray(new Point(2, 1, -1), v001));
         assertNull(result6, "Ray intersects in continuation of the side of the polygon");
     }
 }

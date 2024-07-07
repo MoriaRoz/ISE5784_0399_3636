@@ -4,13 +4,19 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Unit tests class for {@link Triangle} */
+/**
+ * Unit tests class for {@link Triangle}
+ */
 public class TriangleTests {
 
-    /** Test method for {@link Triangle#Triangle(Point, Point, Point)} */
+    /**
+     * Test method for {@link Triangle#Triangle(Point, Point, Point)}
+     */
     @Test
     void testConstructor() {
         // =============== Boundary Values Tests ==================
@@ -29,7 +35,9 @@ public class TriangleTests {
 
     }
 
-    /** Test method for {@link Triangle#getNormal(Point)} */
+    /**
+     * Test method for {@link Triangle#getNormal(Point)}
+     */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -44,7 +52,7 @@ public class TriangleTests {
         Vector v2 = p2.subtract(p3);
 
         Vector expected = v1.crossProduct(v2);
-        Vector result = t.getNormal(new Point(0.75,0.75,0));
+        Vector result = t.getNormal(new Point(0.75, 0.75, 0));
 
         //T1: check if length=1
         assertEquals(1, result.length(),
@@ -56,10 +64,12 @@ public class TriangleTests {
 
     }
 
-    /** Test method for {@link Triangle#findIntersections(Ray)} */
+    /**
+     * Test method for {@link Triangle#findIntersections(Ray)}
+     */
     @Test
     void testFindIntersections() {
-        final Point p_0$5_0$50=new Point(-0.5,-0.5,0);
+        final Point p_0$5_0$50 = new Point(-0.5, -0.5, 0);
         final Point p000 = new Point(0, 0, 0);
         final Point p200 = new Point(2, 0, 0);
         final Point p020 = new Point(0, 2, 0);
@@ -92,7 +102,7 @@ public class TriangleTests {
         // =============== Boundary Values Tests ==================
         //T4: Ray intersects on the side of the triangle(0 points)
         final var result4 = triangle.findIntersections(new Ray(p11_1, v001));
-        assertNull(result4,"Ray intersects on the side of the triangle");
+        assertNull(result4, "Ray intersects on the side of the triangle");
 
         //T5: Ray intersects on the vertex of the triangle(0 points)
         final var result5 = triangle.findIntersections(new Ray(p20_1, v001));

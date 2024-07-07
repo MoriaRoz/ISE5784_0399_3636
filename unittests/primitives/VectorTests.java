@@ -1,31 +1,38 @@
 package primitives;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Unit tests class for {@link Vector} */
+/**
+ * Unit tests class for {@link Vector}
+ */
 class VectorTests {
 
     private final double DELTA = 0.000001;
-    Point Zero=new Point(0,0,0);
+    Point Zero = new Point(0, 0, 0);
     Vector v1;
     Vector v2;
 
-    /** Test method for {@link Vector#Vector} */
+    /**
+     * Test method for {@link Vector#Vector}
+     */
     @Test
-    void testConstructor(){
+    void testConstructor() {
         // =============== Boundary Values Tests ==================
 
         //T1: Zero vector by 3 double
-        assertThrows(IllegalArgumentException.class,()->new Vector(0,0,0),
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0, 0, 0),
                 "Creating the zero vector does not throw an exception");
 
         //T2: Zero vector by Double3
-        assertThrows(IllegalArgumentException.class,()->new Vector(new Double3(0,0,0)),
+        assertThrows(IllegalArgumentException.class, () -> new Vector(new Double3(0, 0, 0)),
                 "Creating the zero vector does not throw an exception");
     }
 
-    /** Test method for {@link Vector#add(Vector)} */
+    /**
+     * Test method for {@link Vector#add(Vector)}
+     */
     @Test
     void testAdd() {
         // ============ Equivalence Partitions Tests ==============
@@ -36,19 +43,19 @@ class VectorTests {
 
         Vector result = v1.add(v2);
         Vector expected = new Vector(v1.xyz.d1 + v2.xyz.d1,
-                                     v1.xyz.d2 + v2.xyz.d2,
-                                     v1.xyz.d3 + v2.xyz.d3);
+                v1.xyz.d2 + v2.xyz.d2,
+                v1.xyz.d3 + v2.xyz.d3);
 
         assertEquals(expected, result,
                 "The add between two vectors isn't working");
 
         //T2: Two opposite vectors (not same length)
-        v2=new Vector(-10,-20,-30);
+        v2 = new Vector(-10, -20, -30);
 
         result = v1.add(v2);
         expected = new Vector(v1.xyz.d1 + v2.xyz.d1,
-                              v1.xyz.d2 + v2.xyz.d2,
-                              v1.xyz.d3 + v2.xyz.d3);
+                v1.xyz.d2 + v2.xyz.d2,
+                v1.xyz.d3 + v2.xyz.d3);
 
         assertEquals(expected, result,
                 "The add between two opposite vectors isn't working");
@@ -59,10 +66,12 @@ class VectorTests {
         v2 = new Vector(-1, -2, -3);
 
         assertThrows(IllegalArgumentException.class, () -> v1.add(v2),
-                    "Adding zero vector does not throw an exception");
+                "Adding zero vector does not throw an exception");
     }
 
-    /** Test method for {@link Vector#scale(double)} */
+    /**
+     * Test method for {@link Vector#scale(double)}
+     */
     @Test
     void testScale() {
         // ============ Equivalence Partitions Tests ==============
@@ -79,7 +88,7 @@ class VectorTests {
                 "The scale between vector and positive double isn't working");
 
         //T2: Opposite scalar
-        d=-3.0;
+        d = -3.0;
 
         result = v1.scale(d);
         expected = new Vector(v1.xyz.d1 * d, v1.xyz.d2 * d, v1.xyz.d3 * d);
@@ -94,7 +103,9 @@ class VectorTests {
                 "Scale zero vector does not throw an exception");
     }
 
-    /** Test method for {@link Vector#dotProduct(Vector)} */
+    /**
+     * Test method for {@link Vector#dotProduct(Vector)}
+     */
     @Test
     void testDotProduct() {
         // ============ Equivalence Partitions Tests ==============
@@ -122,7 +133,9 @@ class VectorTests {
                 "The dot product between two vertical vectors isn't working");
     }
 
-    /** Test method for {@link Vector#crossProduct(Vector)} */
+    /**
+     * Test method for {@link Vector#crossProduct(Vector)}
+     */
     @Test
     void testCrossProduct() {
         // ============ Equivalence Partitions Tests ==============
@@ -140,9 +153,9 @@ class VectorTests {
                 "The cross product between two vectors isn't working");
 
         //T2:  cross-product result orthogonality to its operands
-        assertEquals(0,result.dotProduct(v1),DELTA,
+        assertEquals(0, result.dotProduct(v1), DELTA,
                 "The cross product result is not orthogonal to v1");
-        assertEquals(0,result.dotProduct(v2),DELTA,
+        assertEquals(0, result.dotProduct(v2), DELTA,
                 "The cross product result is not orthogonal to v2");
 
         // =============== Boundary Values Tests ==================
@@ -154,7 +167,9 @@ class VectorTests {
                 "Cross product with parallel vectors does not throw an exception");
     }
 
-    /** Test method for {@link Vector#lengthSquared()} */
+    /**
+     * Test method for {@link Vector#lengthSquared()}
+     */
     @Test
     void testLengthSquared() {
         // ============ Equivalence Partitions Tests ==============
@@ -169,7 +184,9 @@ class VectorTests {
                 "The length squared of the vector is incorrect");
     }
 
-    /** Test method for {@link Vector#length()} */
+    /**
+     * Test method for {@link Vector#length()}
+     */
     @Test
     void testLength() {
         // ============ Equivalence Partitions Tests ==============
@@ -184,22 +201,24 @@ class VectorTests {
                 "The length of the vector is incorrect");
     }
 
-    /** Test method for {@link Vector#normalize()} */
+    /**
+     * Test method for {@link Vector#normalize()}
+     */
     @Test
     void testNormalize() {
         // ============ Equivalence Partitions Tests ==============
 
         //T1: Vector of length!=1
-        v1 =new Vector(1,2,3);
+        v1 = new Vector(1, 2, 3);
 
-        Vector result= v1.normalize();
-        double vLength=Math.sqrt(v1.xyz.d1* v1.xyz.d1+
-                                 v1.xyz.d2* v1.xyz.d2+
-                                 v1.xyz.d3* v1.xyz.d3);
+        Vector result = v1.normalize();
+        double vLength = Math.sqrt(v1.xyz.d1 * v1.xyz.d1 +
+                v1.xyz.d2 * v1.xyz.d2 +
+                v1.xyz.d3 * v1.xyz.d3);
 
-        Vector expected=new Vector(v1.xyz.d1/vLength,
-                                   v1.xyz.d2/vLength,
-                                   v1.xyz.d3/vLength);
+        Vector expected = new Vector(v1.xyz.d1 / vLength,
+                v1.xyz.d2 / vLength,
+                v1.xyz.d3 / vLength);
 
         assertEquals(
                 1.0d,
@@ -212,9 +231,9 @@ class VectorTests {
         // =============== Boundary Values Tests ==================
 
         //T2: Vector of length=1
-        v1 =new Vector(1,0,0);
+        v1 = new Vector(1, 0, 0);
 
-        result= v1.normalize();
+        result = v1.normalize();
 
         assertEquals(v1, result,
                 "The normalize on the vector of length=1 is incorrect");

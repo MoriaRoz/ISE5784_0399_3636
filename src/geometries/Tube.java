@@ -6,15 +6,21 @@ import primitives.Vector;
 
 import java.util.List;
 
-/** A class representing a tube in 3D space */
-public class Tube extends RadialGeometry{
-    /** The axis ray of the tube */
+/**
+ * A class representing a tube in 3D space
+ */
+public class Tube extends RadialGeometry {
+    /**
+     * The axis ray of the tube
+     */
     protected final Ray axis;
 
     /**
      * Constructs a new Tube instance with the given radius and axis ray.
+     *
      * @param radius the radius of the tube
-     * @param axis   the axis ray of the tube */
+     * @param axis   the axis ray of the tube
+     */
     public Tube(double radius, Ray axis) {
         super(radius);
         this.axis = axis;
@@ -22,8 +28,10 @@ public class Tube extends RadialGeometry{
 
     /**
      * Returns the normal vector at a given point on the tube's surface.
+     *
      * @param p the point on the tube's surface
-     * @return the normal vector at the given point */
+     * @return the normal vector at the given point
+     */
     public Vector getNormal(Point p) {
 
         // The vector from the head of the axis ray to the given point
@@ -45,7 +53,7 @@ public class Tube extends RadialGeometry{
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double distance ) {
         return null;
     }
 }

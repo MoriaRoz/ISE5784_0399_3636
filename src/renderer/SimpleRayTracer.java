@@ -1,36 +1,48 @@
 package renderer;
 
+import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
 import primitives.*;
 import scene.Scene;
+
 import java.util.List;
-import geometries.Intersectable.GeoPoint;
 
-/** A simple ray tracer that traces rays in a scene */
-public class SimpleRayTracer extends RayTracerBase{
+/**
+ * A simple ray tracer that traces rays in a scene
+ */
+public class SimpleRayTracer extends RayTracerBase {
 
-    /** Constructs a new SimpleRayTracer instance with the given scene.
-     * @param scene the scene to trace rays in */
+    /**
+     * Constructs a new SimpleRayTracer instance with the given scene.
+     *
+     * @param scene the scene to trace rays in
+     */
     public SimpleRayTracer(Scene scene) {
         super(scene);
     }
 
-    /** Traces a ray in the scene and returns the color of the closest intersection point.
+    /**
+     * Traces a ray in the scene and returns the color of the closest intersection point.
+     *
      * @param ray the ray to trace
-     * @return the color of the closest intersection point */
+     * @return the color of the closest intersection point
+     */
     @Override
     public Color traceRay(Ray ray) {
-        List<GeoPoint> intersections=this.scene.geometries.findGeoIntersections(ray);
-        if (intersections==null)
+        List<GeoPoint> intersections = this.scene.geometries.findGeoIntersections(ray);
+        if (intersections == null)
             return scene.background;
-        return calcColor(ray.findClosestGeoPoint(intersections),ray);
+        return calcColor(ray.findClosestGeoPoint(intersections), ray);
 
     }
 
-    /** Calculates the color of a point in the scene.
+    /**
+     * Calculates the color of a point in the scene.
+     *
      * @param point the point to calculate the color of
-     * @return the color of the point */
-    private Color calcColor(GeoPoint point, Ray ray){
+     * @return the color of the point
+     */
+    private Color calcColor(GeoPoint point, Ray ray) {
         return scene.ambientLight.getIntensity().add(calcLocalEffects(point, ray));
     }
 

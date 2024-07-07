@@ -5,17 +5,24 @@ import primitives.Material;
 import primitives.Point;
 import primitives.Vector;
 
-/** An interface representing a geometric object in 3D space */
+/**
+ * An interface representing a geometric object in 3D space
+ */
 public abstract class Geometry extends Intersectable {
 
-    /** The color of the geometry */
+    /**
+     * The color of the geometry
+     */
     protected Color emission = Color.BLACK;
 
-    /** The material of the geometry */
+    /**
+     * The material of the geometry
+     */
     private Material material = new Material();
 
     /**
      * getter for the emission field
+     *
      * @return the emission field
      */
     public Color getEmission() {
@@ -23,13 +30,8 @@ public abstract class Geometry extends Intersectable {
     }
 
     /**
-     * getter for the material field
-     * @return the material field
-     */
-    public Material getMaterial() { return material; }
-
-    /**
      * setter for the emission field
+     *
      * @param emission the new emission field
      * @return the geometry object
      */
@@ -39,7 +41,17 @@ public abstract class Geometry extends Intersectable {
     }
 
     /**
+     * getter for the material field
+     *
+     * @return the material field
+     */
+    public Material getMaterial() {
+        return material;
+    }
+
+    /**
      * setter for the material field
+     *
      * @param material the new material field
      * @return the geometry object
      */
@@ -48,8 +60,11 @@ public abstract class Geometry extends Intersectable {
         return this;
     }
 
-    /** Returns the normal vector at a given point on the geometry.
+    /**
+     * Returns the normal vector at a given point on the geometry.
+     *
      * @param p is point on the geometry
-     * @return normal of the geometry on this point */
-    public abstract Vector getNormal (Point p);
+     * @return normal of the geometry on this point
+     */
+    public abstract Vector getNormal(Point p);
 }

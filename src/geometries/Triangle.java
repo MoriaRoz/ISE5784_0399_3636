@@ -3,22 +3,30 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-import static primitives.Util.*;
+
 import java.util.List;
 
-/**  A class representing a triangle in 3D space  */
-public class Triangle extends Polygon{
+import static primitives.Util.alignZero;
+
+/**
+ * A class representing a triangle in 3D space
+ */
+public class Triangle extends Polygon {
     /**
      * Constructor for a triangle.
+     *
      * @param p1 The first point of the triangle.
      *           Must be different from p2 and p3.
      *           Must not be on the same line as p2 and p3.
-     *           Must not be null */
+     *           Must not be null
+     */
     public Triangle(Point p1, Point p2, Point p3) {
         super(p1, p2, p3);
     }
 
-    /**  @return The normal vector of the triangle */
+    /**
+     * @return The normal vector of the triangle
+     */
     public Vector getNormal(Point p) {
         return super.getNormal(p);
     }
@@ -26,16 +34,18 @@ public class Triangle extends Polygon{
 
     /**
      * Finds the intersections of a ray with the triangle.
+     *
      * @param ray The ray to find the intersections with.
      *            Must not be null.
      * @return A list of the intersection points.
-     *         Null if there are no intersections */
+     * Null if there are no intersections
+     */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        List<GeoPoint> intersections = plane.findGeoIntersectionsHelper(ray);
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double distance) {
+        List<GeoPoint> intersections = plane.findGeoIntersectionsHelper(ray,distance);
         if (intersections == null)
             return null;
-        intersections = List.of(new GeoPoint(this,intersections.get(0).point));
+        intersections = List.of(new GeoPoint(this, intersections.get(0).point));
         Point rayP0 = ray.getHead();
         Vector rayVec = ray.getDirection();
         Vector v1 = vertices.get(0).subtract(rayP0);

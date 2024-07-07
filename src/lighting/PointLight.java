@@ -4,17 +4,18 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
-public class PointLight extends Light implements LightSource{
+public class PointLight extends Light implements LightSource {
 
     private Point position;
-    private double kC=1;
-    private double kL=0;
-    private double kQ=0;
+    private double kC = 1;
+    private double kL = 0;
+    private double kQ = 0;
 
     /**
      * Constructor that initializes the intensity field
+     *
      * @param intensity the color of the light
-     * @param position the position of the light
+     * @param position  the position of the light
      */
     protected PointLight(Color intensity, Point position) {
         super(intensity);
@@ -34,6 +35,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * Setter for the kC field
+     *
      * @param kC the new value for the kC field
      * @return the PointLight object
      */
@@ -44,6 +46,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * Setter for the kL field
+     *
      * @param kL the new value for the kL field
      * @return the PointLight object
      */
@@ -54,6 +57,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * Setter for the kQ field
+     *
      * @param kQ the new value for the kQ field
      * @return the PointLight object
      */

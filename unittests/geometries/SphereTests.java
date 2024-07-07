@@ -2,17 +2,26 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point;
-import primitives.Vector;
 import primitives.Ray;
-import java.util.List;
+import primitives.Vector;
+
 import java.util.Comparator;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Unit tests class for {@link Sphere}v*/
+/**
+ * Unit tests class for {@link Sphere}v
+ */
 class SphereTests {
     private final double DELTA = 0.000001;
+    private final Point p001 = new Point(0, 0, 1);
+    private final Point p100 = new Point(1, 0, 0);
+    private final Vector v001 = new Vector(0, 0, 1);
 
-    /** Test method for {@link Sphere#getNormal(primitives.Point)} */
+    /**
+     * Test method for {@link Sphere#getNormal(primitives.Point)}
+     */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -33,11 +42,9 @@ class SphereTests {
                 "The getNormal on sphere isn't working- not in the direction of the point");
     }
 
-    private final Point p001 = new Point(0, 0, 1);
-    private final Point p100 = new Point(1, 0, 0);
-    private final Vector v001 = new Vector(0, 0, 1);
-
-    /** Test method for {@link Sphere#findIntersections(Ray)} */
+    /**
+     * Test method for {@link Sphere#findIntersections(Ray)}
+     */
     @Test
     public void testFindIntersections() {
         Sphere sphere = new Sphere(1d, p100);

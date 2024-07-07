@@ -4,14 +4,19 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Unit test class for {@link Plane} */
+/**
+ * Unit test class for {@link Plane}
+ */
 class PlaneTests {
 
-    /** Test method for {@link Plane#Plane(Point, Point, Point)} */
+    /**
+     * Test method for {@link Plane#Plane(Point, Point, Point)}
+     */
     @Test
     void testConstructor() {
         // =============== Boundary Values Tests ==================
@@ -29,7 +34,9 @@ class PlaneTests {
                 "Failed constructing a correct Plane- 3 points are in the same line");
     }
 
-    /** Test method for {@link Plane#getNormal()} */
+    /**
+     * Test method for {@link Plane#getNormal()}
+     */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -55,7 +62,9 @@ class PlaneTests {
                 "The getNormal on plane isn't working- not in the same direction");
     }
 
-    /** Test method for {@link Plane#findIntersections(primitives.Ray)} */
+    /**
+     * Test method for {@link Plane#findIntersections(primitives.Ray)}
+     */
     @Test
     void findIntersections() {
         final Point p000 = new Point(0, 0, 0);

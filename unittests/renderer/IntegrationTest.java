@@ -12,13 +12,30 @@ import scene.Scene;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/** A class of tests that checks intersection points between camera rays and geometric bodies */
+/**
+ * A class of tests that checks intersection points between camera rays and geometric bodies
+ */
 public class IntegrationTest {
 
-    /** Asserts the number of intersection points between a camera and a geometric body
-     * @param camera The camera
-     * @param geo The geometric body
-     * @param expected The expected number of intersection points */
+    /**
+     * Camera for the tests
+     */
+    Camera camera = new Camera.Builder()
+            .setLocation(new Point(0, 0, 0))
+            .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
+            .setVpDistance(1)
+            .setVpSize(3, 3)
+            .setImageWriter(new ImageWriter("test", 3, 3))
+            .setRayTracer(new SimpleRayTracer(new Scene("test")))
+            .build();
+
+    /**
+     * Asserts the number of intersection points between a camera and a geometric body
+     *
+     * @param camera   The camera
+     * @param geo      The geometric body
+     * @param expected The expected number of intersection points
+     */
     private void assertIntersectionPoints(Camera camera, Intersectable geo, int expected) {
         int nX = 3;
         int nY = 3;
@@ -34,17 +51,9 @@ public class IntegrationTest {
         assertEquals(expected, count, "Wrong number of intersection points");
     }
 
-    /** Camera for the tests */
-    Camera camera = new Camera.Builder()
-            .setLocation(new Point(0, 0, 0))
-            .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
-            .setVpDistance(1)
-            .setVpSize(3, 3)
-            .setImageWriter(new ImageWriter("test", 3, 3))
-            .setRayTracer(new SimpleRayTracer(new Scene("test")))
-            .build();
-
-    /** Tests the intersection points between the camera and a sphere */
+    /**
+     * Tests the intersection points between the camera and a sphere
+     */
     @Test
     public void sphereIntegrationTest() {
 
@@ -69,7 +78,9 @@ public class IntegrationTest {
         assertIntersectionPoints(camera, sphere5, 0);
     }
 
-    /** Tests the intersection points between the camera and a plane */
+    /**
+     * Tests the intersection points between the camera and a plane
+     */
     @Test
     public void planeIntegrationTest() {
         //T1: Plane with 9 intersection points
@@ -77,21 +88,23 @@ public class IntegrationTest {
         assertIntersectionPoints(camera, plane1, 9);
 
         //T2: Plane with 9 intersection points
-        Plane plane2 = new Plane(new Point(0,0,-5),new Vector( 0,0,-1));
+        Plane plane2 = new Plane(new Point(0, 0, -5), new Vector(0, 0, -1));
         assertIntersectionPoints(camera, plane2, 9);
 
         //T3: Plane with 6 intersection points
-        Plane plane3 = new Plane(new Point(0,0, -2),new Vector(1, -1,1));
+        Plane plane3 = new Plane(new Point(0, 0, -2), new Vector(1, -1, 1));
         assertIntersectionPoints(camera, plane3, 6);
 
     }
 
-    /** Tests the intersection points between the camera and a triangle */
+    /**
+     * Tests the intersection points between the camera and a triangle
+     */
     @Test
     public void triangleIntegrationTest() {
         //T1: Triangle with 2 intersection point
         Triangle triangle1 = new Triangle(
-                new Point(0,20, -2),
+                new Point(0, 20, -2),
                 new Point(1, -1, -2),
                 new Point(-1, -1, -2));
         assertIntersectionPoints(camera, triangle1, 2);

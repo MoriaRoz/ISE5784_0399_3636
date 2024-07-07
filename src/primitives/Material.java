@@ -1,15 +1,17 @@
 package primitives;
+
 /**
  * Material class represents the material of a 3D object.
  * It contains the diffusion attenuation coefficient, the specular attenuation coefficient and the shininess factor.
  */
 public class Material {
-    public Double3 kD=Double3.ZERO; // Diffusion attenuation coefficient
-    public Double3 kS=Double3.ZERO; // Specular attenuation coefficient
-    public int nShininess=0; // Shininess factor
+    public Double3 kD = Double3.ZERO; // Diffusion attenuation coefficient
+    public Double3 kS = Double3.ZERO; // Specular attenuation coefficient
+    public int nShininess = 0; // Shininess factor
 
     /**
      * Set the diffusion attenuation coefficient
+     *
      * @param kD the value to set
      * @return this Material object
      */
@@ -20,6 +22,7 @@ public class Material {
 
     /**
      * Set the diffusion attenuation coefficient to the same value for all 3 numbers
+     *
      * @param d the value to set
      * @return this Material object
      */
@@ -30,6 +33,7 @@ public class Material {
 
     /**
      * Set the specular attenuation coefficient
+     *
      * @param kS the value to set
      * @return this Material object
      */
@@ -40,6 +44,7 @@ public class Material {
 
     /**
      * Set the specular attenuation coefficient to the same value for all 3 numbers
+     *
      * @param d the value to set
      * @return this Material object
      */
@@ -50,6 +55,7 @@ public class Material {
 
     /**
      * Set the shininess factor
+     *
      * @param nShininess the value to set
      * @return this Material object
      */

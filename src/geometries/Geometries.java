@@ -1,27 +1,36 @@
 package geometries;
 
-import primitives.Point;
 import primitives.Ray;
+
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-/** Represents a collection of geometries in 3D space */
-public class Geometries extends Intersectable{
-    /** The geometries in the collection */
+/**
+ * Represents a collection of geometries in 3D space
+ */
+public class Geometries extends Intersectable {
+    /**
+     * The geometries in the collection
+     */
     private final List<Intersectable> geometries = new ArrayList<>();
 
     public Geometries() {
     }
 
-    /** Constructs a new Geometries instance with the given geometries.
-     * @param geometries the geometries to add to the collection */
+    /**
+     * Constructs a new Geometries instance with the given geometries.
+     *
+     * @param geometries the geometries to add to the collection
+     */
     public Geometries(Intersectable... geometries) {
         add(geometries);
     }
 
-    /** Adds the given geometries to the collection.
-     * @param geometries the geometries to add to the collection */
+    /**
+     * Adds the given geometries to the collection.
+     *
+     * @param geometries the geometries to add to the collection
+     */
     public void add(Intersectable... geometries) {
         for (Intersectable geometry : geometries) {
             this.geometries.add(geometry);
@@ -29,15 +38,18 @@ public class Geometries extends Intersectable{
     }
 
 
-    /** Finds the intersections of a ray with the geometries in the collection.
+    /**
+     * Finds the intersections of a ray with the geometries in the collection.
+     *
      * @param ray the ray to find intersections with
-     * @return a list of intersection points with the given ray */
+     * @return a list of intersection points with the given ray
+     */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double distance) {
         List<GeoPoint> intersections = null;
 
         for (Intersectable geometry : geometries) {
-            List<GeoPoint> tempIntersections = geometry.findGeoIntersections(ray);
+            List<GeoPoint> tempIntersections = geometry.findGeoIntersections(ray, distance);
 
             if (tempIntersections != null) {
                 if (intersections == null) {
@@ -47,9 +59,9 @@ public class Geometries extends Intersectable{
             }
         }
 
-        if (intersections != null) {
-            intersections.sort(Comparator.comparingDouble(gp -> gp.point.distance(ray.getHead())));
-        }
+//        if (intersections != null) {
+//            intersections.sort(Comparator.comparingDouble(gp -> gp.point.distance(ray.getHead())));
+//        }
 
         return intersections;
     }

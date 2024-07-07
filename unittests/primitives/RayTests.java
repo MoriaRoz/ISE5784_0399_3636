@@ -1,16 +1,22 @@
 package primitives;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-/** Unit tests class for {@link Ray} class */
+/**
+ * Unit tests class for {@link Ray} class
+ */
 public class RayTests {
 
-    /** Test method for {@link primitives.Ray#getPoint(double)} */
+    /**
+     * Test method for {@link primitives.Ray#getPoint(double)}
+     */
     @Test
-    void testGetPoint(){
+    void testGetPoint() {
         Point p = new Point(1, 2, 3);
         Vector v = new Vector(1, 1, 1);
         Ray r = new Ray(p, v);
@@ -18,12 +24,12 @@ public class RayTests {
         // ============ Equivalence Partitions Tests ==============
         //T1: positive distance
         Point result1 = r.getPoint(2.0);
-        Point expected1 = new Point(2.1547005383792515,3.1547005383792515,4.1547005383792515);
+        Point expected1 = new Point(2.1547005383792515, 3.1547005383792515, 4.1547005383792515);
         assertEquals(expected1, result1, "The getPoint method is not working correctly for positive distance");
 
         //T2: negative distance
         Point result2 = r.getPoint(-2.0);
-        Point expected2 = new Point(-0.15470053837925168,0.8452994616207483,1.8452994616207483);
+        Point expected2 = new Point(-0.15470053837925168, 0.8452994616207483, 1.8452994616207483);
         assertEquals(expected2, result2, "The getPoint method is not working correctly for negative distance");
 
         // =============== Boundary Values Tests ==================
@@ -32,16 +38,18 @@ public class RayTests {
         assertEquals(p, result3, "The getPoint method is not working correctly for distance equal to 0");
     }
 
-    /** Test method for {@link primitives.Ray#findClosestPoint(java.util.List)} */
+    /**
+     * Test method for {@link primitives.Ray#findClosestPoint(java.util.List)}
+     */
     @Test
-    void testFindClosestPoint(){
-        Point p = new Point(0,0,1);
-        Vector v = new Vector(1,1,1);
+    void testFindClosestPoint() {
+        Point p = new Point(0, 0, 1);
+        Vector v = new Vector(1, 1, 1);
         Ray r = new Ray(p, v);
 
-        final Point p002 = new Point(0,0,2);
-        final Point p234 = new Point(2,3,4);
-        final Point p345 = new Point(3,4,5);
+        final Point p002 = new Point(0, 0, 2);
+        final Point p234 = new Point(2, 3, 4);
+        final Point p345 = new Point(3, 4, 5);
 
         // ============ Equivalence Partitions Tests ==============
         //T1: The closest point is the middle point in the list
