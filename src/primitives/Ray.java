@@ -3,6 +3,7 @@ package primitives;
 import java.util.List;
 import java.util.Objects;
 import static primitives.Util.*;
+import geometries.Intersectable.GeoPoint;
 
 /** Represents a ray in 3D space */
 public class Ray {
@@ -63,12 +64,21 @@ public class Ray {
      * @param points the list of points
      * @return the closest point to the head of the ray */
     public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+    }
+
+    /**
+     * Finds the closest GeoPoint to the head of the ray from a list of GeoPoints.
+     * @param points the list of GeoPoints
+     * @return the closest GeoPoint to the head of the ray */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
         if (points == null)
             return null;
-        Point result = null;
+        GeoPoint result = null;
         double minDistance = Double.POSITIVE_INFINITY;
-        for (Point point : points) {
-            double distance = head.distanceSquared(point);
+        for (GeoPoint point : points) {
+            double distance = head.distanceSquared(point.point);
             if (distance < minDistance) {
                 minDistance = distance;
                 result = point;
@@ -76,5 +86,4 @@ public class Ray {
         }
         return result;
     }
-
 }

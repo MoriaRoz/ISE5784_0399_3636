@@ -85,94 +85,27 @@ public class Polygon extends Geometry {
 
    /**
     * Find intersections of the ray with the polygon
-    * @param incomingRay the ray
+    * @param ray the ray
     * @return List of intersections points, or null if there are no intersections */
    @Override
-   public List<Point> findIntersections(Ray incomingRay) {
-      Point rayOrigin = incomingRay.getHead();      // Starting point of the ray
-      Vector rayDirection = incomingRay.getDirection(); // Direction of the ray
-
-      // Determine where the ray intersects the polygon's plane
-      List<Point> planeHitPoints = plane.findIntersections(incomingRay);
-      if (planeHitPoints == null) {
-         return null; // No intersection with the plane
-      }
-
-      // We expect only one intersection point with the plane
-      Point potentialIntersection = planeHitPoints.getFirst();
-
-      // Examine if the intersection occurs on the polygon's boundary
-      Point currentVertex, nextVertex;
-      Vector edgeVector, vectorToIntersection, vectorFromIntersection;
-      Vector edgeNormal;
-      for (int vertexIndex = 0; vertexIndex < size; vertexIndex++) {
-         currentVertex = vertices.get(vertexIndex);
-         nextVertex = vertices.get((vertexIndex + 1) % size);
-         edgeVector = nextVertex.subtract(currentVertex);
-
-         // Intersection at a vertex means no valid intersection
-         if (currentVertex.equals(potentialIntersection) || nextVertex.equals(potentialIntersection)) {
-            return null;
-         }
-
-         vectorToIntersection = potentialIntersection.subtract(currentVertex);
-         vectorFromIntersection = nextVertex.subtract(potentialIntersection);
-         edgeNormal = edgeVector.crossProduct(plane.getNormal());
-
-         // Check if intersection lies on an edge
-         if (isZero(vectorToIntersection.dotProduct(edgeNormal)) &&
-                 alignZero(edgeVector.dotProduct(vectorToIntersection)) >= 0 &&
-                 alignZero(edgeVector.dotProduct(vectorFromIntersection)) >= 0) {
-            return null;
-         }
-      }
-
-      // Determine if the intersection point is within the polygon
-      boolean consistentOrientation = true;
-      double orientationTest1 = 0, orientationTest2 = 0;
-
-      for (int vertexIndex = 0; vertexIndex < size; vertexIndex++) {
-         currentVertex = vertices.get(vertexIndex);
-         nextVertex = vertices.get((vertexIndex + 1) % size);
-         edgeVector = nextVertex.subtract(currentVertex);
-         vectorToIntersection = potentialIntersection.subtract(currentVertex);
-         vectorFromIntersection = potentialIntersection.subtract(nextVertex);
-         edgeNormal = edgeVector.crossProduct(plane.getNormal());
-
-         // Ensure consistent edge normal orientation
-         edgeNormal = edgeNormal.normalize();
-
-         orientationTest1 = alignZero(vectorToIntersection.dotProduct(edgeNormal));
-         orientationTest2 = alignZero(vectorFromIntersection.dotProduct(edgeNormal));
-
-         if (orientationTest1 * orientationTest2 < 0) {
-            consistentOrientation = false;
-            break;
-         }
-      }
-
-      if (!consistentOrientation) {
-         return null;
-      }
-
-      // Final check: Confirm the intersection is within polygon boundaries
-      double boundaryTest;
-      for (int vertexIndex = 0; vertexIndex < size; vertexIndex++) {
-         currentVertex = vertices.get(vertexIndex);
-         nextVertex = vertices.get((vertexIndex + 1) % size);
-         edgeVector = nextVertex.subtract(currentVertex);
-         vectorToIntersection = potentialIntersection.subtract(currentVertex);
-         boundaryTest = alignZero(edgeVector.dotProduct(vectorToIntersection));
-
-         if (boundaryTest < 0) {
-            return null; // Outside polygon boundary
-         }
-      }
-      return List.of(potentialIntersection);
-   }
-
-   @Override
    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-      return List.of(new GeoPoint(this, findIntersections(ray).get(0)));
+      List<GeoPoint> intersections = plane.findGeoIntersectionsHelper(ray);
+      if (intersections == null)
+         return null;
+      intersections = List.of(new GeoPoint(this,intersections.get(0).point));
+      Point rayP0 = ray.getHead();
+      Vector rayVec = ray.getDirection();
+      int n = vertices.size();
+      Vector[] edgeVectors = new Vector[n];
+      for (int i = 0; i < n; ++i)
+         edgeVectors[i] = vertices.get(i).subtract(rayP0);
+      double[] scalars = new double[n];
+      for (int i = 0; i < n - 1; ++i)
+         scalars[i] = rayVec.dotProduct(edgeVectors[i].crossProduct(edgeVectors[i + 1]));
+      scalars[n - 1] = rayVec.dotProduct(edgeVectors[n - 1].crossProduct(edgeVectors[0]));
+      for (int i = 0; i < n - 1; ++i)
+         if (alignZero(scalars[i] * scalars[i + 1]) <= 0)
+            return null;
+      return intersections;
    }
 }

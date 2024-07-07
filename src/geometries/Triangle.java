@@ -23,6 +23,7 @@ public class Triangle extends Polygon{
         return super.getNormal(p);
     }
 
+
     /**
      * Finds the intersections of a ray with the triangle.
      * @param ray The ray to find the intersections with.
@@ -30,11 +31,11 @@ public class Triangle extends Polygon{
      * @return A list of the intersection points.
      *         Null if there are no intersections */
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        List<Point> intersections = plane.findIntersections(ray);
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> intersections = plane.findGeoIntersectionsHelper(ray);
         if (intersections == null)
             return null;
-
+        intersections = List.of(new GeoPoint(this,intersections.get(0).point));
         Point rayP0 = ray.getHead();
         Vector rayVec = ray.getDirection();
         Vector v1 = vertices.get(0).subtract(rayP0);

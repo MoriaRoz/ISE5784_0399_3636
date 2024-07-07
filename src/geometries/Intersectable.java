@@ -50,11 +50,14 @@ public abstract class Intersectable {
     /** Finds the intersections of the given ray with this geometry.
      * @param ray the ray to find intersections with
      * @return a list of intersection points with the given ray */
-    public abstract List<Point> findIntersections(Ray ray);
+    public List<Point> findIntersections(Ray ray) {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
+    }
 
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersectionsHelper(ray);
     }
 
-    abstract protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 }

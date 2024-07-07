@@ -56,6 +56,7 @@ public class Plane extends Geometry{
      * @return the normal vector of the plane */
     public Vector getNormal() {return normal;}
 
+
     /**
      * Finds the intersections of a ray with the plane.
      * @param ray The ray to find the intersections with.
@@ -63,7 +64,7 @@ public class Plane extends Geometry{
      * @return A list of the intersection points.
      *         Null if there are no intersections */
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Vector n = getNormal();
         Point q0 = ray.getHead();
         Vector v = ray.getDirection();
@@ -82,15 +83,8 @@ public class Plane extends Geometry{
             return null;
 
         Point p = q0.add(v.scale(t));
-        return List.of(p);
+        return List.of(new GeoPoint(this,p));
     }
 
-    @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        return List.of(new GeoPoint(this, findIntersections(ray).get(0)));
-    }
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return findGeoIntersectionsHelper(ray);
-    }
 }
 

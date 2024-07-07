@@ -28,15 +28,16 @@ public class Geometries extends Intersectable{
         }
     }
 
+
     /** Finds the intersections of a ray with the geometries in the collection.
      * @param ray the ray to find intersections with
      * @return a list of intersection points with the given ray */
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        List<Point> intersections = null;
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> intersections = null;
 
         for (Intersectable geometry : geometries) {
-            List<Point> tempIntersections = geometry.findIntersections(ray);
+            List<GeoPoint> tempIntersections = geometry.findGeoIntersections(ray);
 
             if (tempIntersections != null) {
                 if (intersections == null) {
@@ -46,11 +47,10 @@ public class Geometries extends Intersectable{
             }
         }
 
-        return intersections;
-    }
+        if (intersections != null) {
+            intersections.sort(Comparator.comparingDouble(gp -> gp.point.distance(ray.getHead())));
+        }
 
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        return List.of();
+        return intersections;
     }
 }
