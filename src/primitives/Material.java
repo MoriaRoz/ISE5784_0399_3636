@@ -5,9 +5,31 @@ package primitives;
  * It contains the diffusion attenuation coefficient, the specular attenuation coefficient and the shininess factor.
  */
 public class Material {
+    public Double3 kR = Double3.ZERO; // Reflection attenuation coefficient
+    public Double3 kT = Double3.ZERO; // Reflection attenuation coefficient
     public Double3 kD = Double3.ZERO; // Diffusion attenuation coefficient
     public Double3 kS = Double3.ZERO; // Specular attenuation coefficient
     public int nShininess = 0; // Shininess factor
+
+    /**
+     * Set the diffusion attenuation coefficient
+     *
+     * @param kR the value to set
+     * @return this Material object
+     */
+    public void setkR(Double3 kR) {
+        this.kR = kR;
+    }
+
+    /**
+     * Set the diffusion attenuation coefficient
+     *
+     * @param kT the value to set
+     * @return this Material object
+     */
+    public void setkT(Double3 kT) {
+        this.kT = kT;
+    }
 
     /**
      * Set the diffusion attenuation coefficient

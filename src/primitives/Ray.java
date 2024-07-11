@@ -4,6 +4,7 @@ import geometries.Intersectable.GeoPoint;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
@@ -18,6 +19,10 @@ public class Ray {
      * The direction vector of the ray
      */
     private Vector direction;
+    /**
+     * A small value used for moving the head of the ray slightly
+     */
+    private static final double DELTA = 0.1;
 
     /**
      * Constructs a new Ray instance with the given head and direction.
@@ -29,6 +34,18 @@ public class Ray {
         this.head = head;
         this.direction = direction.normalize();
     }
+
+    /**
+     * Constructs a new Ray instance with the given head, direction, and normal.
+     *
+     * @param head      the head (starting point) of the ray
+     * @param direction the direction vector of the ray
+     * @param normal    the normal vector of the geometry
+     */
+    public Ray(Point head, Vector direction, Vector normal) {
+        double nv = alignZero(normal.dotProduct(direction));
+        this.head=isZero(nv) ? head : head.add(normal.scale(nv < 0 ? -DELTA : DELTA));
+        this.direction = direction.normalize();    }
 
     /**
      * Returns the head (starting point) of the ray.
