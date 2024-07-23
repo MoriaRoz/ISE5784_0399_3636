@@ -17,8 +17,20 @@ public class Material {
      * @param kR the value to set
      * @return this Material object
      */
-    public void setkR(Double3 kR) {
+    public Material setkR(Double3 kR) {
         this.kR = kR;
+        return this;
+    }
+
+    /**
+     * Set the diffusion attenuation coefficient to the same value for all 3 numbers
+     *
+     * @param d the value to set
+     * @return this Material object
+     */
+    public Material setkR(double d) {
+        this.kR = new Double3(d);
+        return this;
     }
 
     /**
@@ -27,8 +39,20 @@ public class Material {
      * @param kT the value to set
      * @return this Material object
      */
-    public void setkT(Double3 kT) {
+    public Material setkT(Double3 kT) {
         this.kT = kT;
+        return this;
+    }
+
+    /**
+     * Set the diffusion attenuation coefficient to the same value for all 3 numbers
+     *
+     * @param d the value to set
+     * @return this Material object
+     */
+    public Material setkT(double d) {
+        this.kT = new Double3(d);
+        return this;
     }
 
     /**

@@ -13,7 +13,7 @@ public class Point {
     /**
      * x,y,z is the coordinates of the point
      */
-    protected final Double3 xyz;
+    final Double3 xyz;
 
     /**
      * Constructs a new Point instance with the given x, y, and z coordinates.
