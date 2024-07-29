@@ -214,21 +214,197 @@ public class ImageTests {
         scene.geometries.add(pb1, pb2, pb3, pb4, pb5, pb6, pb7, pb8, pb9);
         //endregion
 
+
         //region triangular pyramid
         //Base triangle of the pyramid
-        Triangle tB =new Triangle(new Point(29,0,0),new Point(46,10,0),new Point(46,-10,0));
+        Triangle tB =new Triangle(new Point(27.13,-0.67,-1.13),new Point(46.4+1,12,-1.13),new Point(46.4+1,-12,-1.13));
         tB.setEmission(new Color(BLACK));
+//region smaller triangles of tB
+// Adjust the midpoints with the offset
+        Point m1 = new Point((29 + 46 ) / 2, (0 + 10 ) / 2, (0 + 0 ) / 2);
+        Point m2 = new Point((46 + 46 ) / 2, (10 + -10 ) / 2, (0 + 0) / 2);
+        Point m3 = new Point((46 + 29 ) / 2, (-10 + 0 ) / 2, (0 + 0 ) / 2);
+
+        Point h1 = new Point(29,0,0);
+        Point h2 = new Point(46,10,0);
+        Point h3 = new Point(46,-10,0);
+
+// Create 4 smaller triangles
+        Triangle smallB1 = new Triangle(h1, m1, m3);
+        smallB1.setEmission(new Color(GREEN));
+
+        Triangle smallB2 = new Triangle(m1, h2, m2);
+        smallB2.setEmission(new Color(RED));
+
+        Triangle smallB3 = new Triangle(m3, m2, h3);
+        smallB3.setEmission(new Color(BLUE));
+
+        Triangle smallB4 = new Triangle(m1, m2, m3);
+        smallB4.setEmission(new Color(YELLOW));
+        //endregion
 
         //Three sides of the pyramid
-        Triangle t1=new Triangle(new Point(29,0,0),new Point(46,10,0),new Point(40,0,17));
-        t1.setEmission(new Color(10,10,10));
+        Triangle t1=new Triangle(new Point(27.13,-0.67,-1.13),new Point(46.4+1,12,-1.13),new Point(39+1.2,0,19.27));
+        t1.setEmission(new Color(BLACK));
+//region smaller triangles of t1
+// Adjust the midpoints with the offset
+        m1 = new Point((29 + 46 ) / 2-1-0.5, (0 + 10 ) / 2+0.1-0.5, (0 + 0 ) / 2-1+0.5);
+        m2 = new Point((46 + 40 ) / 2-1-0.5, (10 + 0 ) / 2+0.1, (0 + 17 ) / 2-1);
+        m3 = new Point((40 + 29 ) / 2-1-0.5+0.2+0.2, (0 + 0 ) / 2+0.1-0.3, (17 + 0 ) / 2-1+0.5);
 
-        Triangle t2=new Triangle(new Point(29,0,0),new Point(40,0,17),new Point(46,-10,0));
+        h1 = new Point(29-1-0.5+0.2,0+0.1-0.5,0-1+0.5);
+        h2 = new Point(46-1-0.5,10+0.1,0-1);
+        h3 = new Point(40-1-0.5,0+0.1,17-1);
+
+// Create 4 smaller triangles
+        Triangle small11 = new Triangle(h1, m1, m3);
+        small11.setEmission(new Color(GREEN));
+
+        m1 = new Point((29 + 46 ) / 2-0.5+0.5, (0 + 10 ) / 2+0.1+0.2, (0 + 0 ) / 2-1+0.5);
+        m2 = new Point((46 + 40 ) / 2-0.5+0.5, (10 + 0 ) / 2+0.1+0.5+0.5, (0 + 17 ) / 2-1+0.5);
+        m3 = new Point((40 + 29 ) / 2-0.5, (0 + 0 ) / 2+0.1+0.5, (17 + 0 ) / 2-1);
+
+        h1 = new Point(29-0.5,0+0.1+0.5,0-1);
+        h2 = new Point(46-0.5+0.5,10+0.1+0.5+0.5,0-1+0.5);
+        h3 = new Point(40-0.5,0+0.1+0.5,17-1);
+
+        Triangle small12 = new Triangle(m1, h2, m2);
+        small12.setEmission(new Color(RED));
+
+        m1 = new Point((29 + 46 ) / 2-0.5, (0 + 10 ) / 2+0.1, (0 + 0 ) / 2+1);
+        m2 = new Point((46 + 40 ) / 2-0.5+0.5, (10 + 0 ) / 2+0.1+0.5, (0 + 17 ) / 2+1);
+        m3 = new Point((40 + 29 ) / 2-0.5+0.5, (0 + 0 ) / 2+0.1, (17 + 0 ) / 2+1);
+
+        h1 = new Point(29-0.5,0+0.1,0+1);
+        h2 = new Point(46-0.5,10+0.1,0+1);
+        h3 = new Point(40-0.5+0.5,0+0.1+0.5,17+1);
+
+        Triangle small13 = new Triangle(m3, m2, h3);
+        small13.setEmission(new Color(BLUE));
+
+        m1 = new Point((29 + 46 ) / 2-0.5, (0 + 10 ) / 2+0.1, (0 + 0 ) / 2);
+        m2 = new Point((46 + 40 ) / 2-0.5, (10 + 0 ) / 2+0.1+0.5, (0 + 17 ) / 2);
+        m3 = new Point((40 + 29 ) / 2-0.5, (0 + 0 ) / 2+0.1, (17 + 0 ) / 2);
+
+        h1 = new Point(29-0.5,0+0.1,0);
+        h2 = new Point(46-0.5,10+0.1,0);
+        h3 = new Point(40-0.5,0+0.1,17);
+
+        Triangle small14 = new Triangle(m1, m2, m3);
+        small14.setEmission(new Color(YELLOW));
+        //endregion
+
+        Triangle t2=new Triangle(new Point(39+1.2,0,19.27),new Point(27.13,-0.67,-1.13),new Point(46.4+1,-12,-1.13));
         t2.setEmission(new Color(20,20,20));
+//region smaller triangles of t2
+// Adjust the midpoints with the offset
+        m1 = new Point((29 + 40 ) / 2, (0 + 0 ) / 2-1-0.5, (0 + 17 ) / 2-0.5);
+        m2 = new Point((40 + 46 ) / 2, (0 + -10 ) / 2-1, (17 + 0 ) / 2);
+        m3 = new Point((46 + 29 ) / 2, (0 + -10 ) / 2-1-0.5, (0 + 0 ) / 2-0.5);
 
-        Triangle t3=new Triangle(new Point(40,0,17),new Point(46,10,0),new Point(46,-10,0));
+        h1 = new Point(29,0-1-0.5,0-0.5);
+        h2 = new Point(40,0-1,17);
+        h3 = new Point(46,-10-1,0);
+
+        Triangle small21 = new Triangle(h1, m1, m3);
+        small21.setEmission(new Color(BLUE));
+
+        m1 = new Point((29 + 40 ) / 2, (0 + 0 ) / 2-1, (0 + 17 ) / 2+0.5);
+        m2 = new Point((40 + 46 ) / 2, (0 + -10 ) / 2-1, (17 + 0 ) / 2+0.5);
+        m3 = new Point((46 + 29 ) / 2, (0 + -10 ) / 2-1, (0 + 0 ) / 2);
+
+        h1 = new Point(29,0-1,0);
+        h2 = new Point(40,0-1+0.5-0.3,17+0.5);
+        h3 = new Point(46,-10-1,0);
+
+        Triangle small22 = new Triangle(m1, h2, m2);
+        small22.setEmission(new Color(GREEN));
+
+        m1 = new Point((29 + 40 ) / 2, (0 + 0 ) / 2-1, (0 + 17 ) / 2);
+        m2 = new Point((40 + 46 ) / 2, (0 + -10 ) / 2-1-0.5, (17 + 0 ) / 2-0.5);
+        m3 = new Point((46 + 29 ) / 2, (0 + -10 ) / 2-1, (0 + 0 ) / 2-0.5);
+
+        h1 = new Point(29,0-1,0);
+        h2 = new Point(40,0-1,17);
+        h3 = new Point(46,-10-1,0-0.5);
+
+
+        Triangle small23 = new Triangle(m3, m2, h3);
+        small23.setEmission(new Color(RED));
+
+        m1 = new Point((29 + 40 ) / 2, (0 + 0 ) / 2-1, (0 + 17 ) / 2);
+        m2 = new Point((40 + 46 ) / 2, (0 + -10 ) / 2-1, (17 + 0 ) / 2);
+        m3 = new Point((46 + 29 ) / 2, (0 + -10 ) / 2-1, (0 + 0 ) / 2);
+
+        h1 = new Point(29,0-1,0);
+        h2 = new Point(40,0-1,17);
+        h3 = new Point(46,-10-1,0);
+
+
+        Triangle small24 = new Triangle(m1, m2, m3);
+        small24.setEmission(new Color(YELLOW));
+        //endregion
+
+        //Triangle t3=new Triangle(new Point(40,0,17),new Point(46,10,0),new Point(46,-10,0));
+        Triangle t3=new Triangle(new Point(39+1.2,0,19.27),new Point(46.4+1,12,-1.13),new Point(46.4+1,-12,-1.13));
         t3.setEmission(new Color(30,30,30));
-        scene.geometries.add(tB,t1,t2,t3);
+//region smaller triangles of t3
+// Adjust the midpoints with the offset
+
+        // Create 4 smaller triangles
+
+        m1 = new Point((40 + 46 ) / 2+0.1+1, (0 + 10 ) / 2, (17 + 0 ) / 2+1);
+        m2 = new Point((46 + 46 ) / 2+0.1+1, (10 + -10 ) / 2, (0 + 0 ) / 2+1);
+        m3 = new Point((46 + 40 ) / 2+0.1+1, (-10 + 0 ) / 2, (0 + 17 ) / 2+1);
+
+        h1 = new Point(39.7+1, 0, 17+1);
+        h2 = new Point(46+0.1+1, 10, 0+1);
+        h3 = new Point(46+0.1+1, -10, 0+1);
+
+        Triangle small31 = new Triangle(h1, m1, m3);
+        small31.setEmission(new Color(RED));
+
+        m1 = new Point((40 + 46 ) / 2+0.5+1, (0 + 10 ) / 2+1, (17 + 0 ) / 2);
+        m2 = new Point((46 + 46 ) / 2+0.5+1, (10 + -10 ) / 2+1, (0 + 0 ) / 2);
+        m3 = new Point((46 + 40 ) / 2+0.5+1, (-10 + 0 ) / 2+1, (0 + 17 ) / 2);
+
+        h1 = new Point(40+0.5+1, 0+1, 17);
+        h2 = new Point(46+0.5+1, 10+1, 0);
+        h3 = new Point(46+0.5+1, -10+1, 0);
+
+        Triangle small32 = new Triangle(m1, h2, m2);
+        small32.setEmission(new Color(GREEN));
+
+        m1 = new Point((40 + 46 ) / 2+0.5+1, (0 + 10 ) / 2-1, (17 + 0 ) / 2);
+        m2 = new Point((46 + 46 ) / 2+0.5+1, (10 + -10 ) / 2-1, (0 + 0 ) / 2);
+        m3 = new Point((46 + 40 ) / 2+0.5+1, (-10 + 0 ) / 2-1, (0 + 17 ) / 2);
+
+        h1 = new Point(40+0.5+1, 0-1, 17);
+        h2 = new Point(46+0.5+1, 10-1, 0);
+        h3 = new Point(46+0.5+1, -10-1, 0);
+
+        Triangle small33 = new Triangle(m3, m2, h3);
+        small33.setEmission(new Color(BLUE));
+
+        m1 = new Point((40 + 46 ) / 2+0.5+1, (0 + 10 ) / 2, (17 + 0 ) / 2);
+        m2 = new Point((46 + 46 ) / 2+0.5+1, (10 + -10 ) / 2, (0 + 0 ) / 2);
+        m3 = new Point((46 + 40 ) / 2+0.5+1, (-10 + 0 ) / 2, (0 + 17 ) / 2);
+
+        h1 = new Point(40+0.5+1, 0, 17);
+        h2 = new Point(46+0.5+1, 10, 0);
+        h3 = new Point(46+0.5+1, -10, 0);
+
+        Triangle small34 = new Triangle(m1, m2, m3);
+        small34.setEmission(new Color(YELLOW));
+        //endregion
+
+// Output the smaller triangles or add them to your scene
+
+        scene.geometries.add(tB,t1,t2,t3,
+                small11,small12,small13,small14,
+                small21,small22,small23,small24,
+                small31,small32,small33,small34);
+        //smallB1,smallB2,smallB3,smallB4,);
 
         //endregion
 
