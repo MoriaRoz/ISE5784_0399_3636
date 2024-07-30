@@ -5,8 +5,9 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.MissingResourceException;
-
 import static primitives.Util.isZero;
 
 /**
@@ -20,6 +21,7 @@ public class Camera implements Cloneable {
     private double width = 0.0, height = 0.0, distance = 0.0;//the size of the view plane and the distance from the camera
     private ImageWriter imageWriter;//the image writer of the camera
     private RayTracerBase rayTracer;//the ray tracer of the camera
+    private int antiAliasingFactor = 1; // Default is 1 (no anti-aliasing)
 
     private Camera() {
     }
@@ -76,10 +78,11 @@ public class Camera implements Cloneable {
     public Camera renderImage() {
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
-        for (int i = 0; i < nY; i++)
+        for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
                 castRay(nX, nY, j, i);
             }
+        }
         return this;
     }
 
@@ -92,9 +95,15 @@ public class Camera implements Cloneable {
      * @param i  the y index of the pixel
      */
     private void castRay(int nX, int nY, int j, int i) {
-        Ray ray = constructRay(nX, nY, j, i);
-        Color color = rayTracer.traceRay(ray);
-        imageWriter.writePixel(j, i, color);
+        List<Ray> rays = constructRayBeam(nX, nY, j, i);
+        Color pixelColor = Color.BLACK;
+
+        for (Ray ray : rays) {
+            pixelColor = pixelColor.add(rayTracer.traceRay(ray));
+        }
+
+        pixelColor = pixelColor.reduce(rays.size());
+        imageWriter.writePixel(j, i, pixelColor);
     }
 
     /**
@@ -239,5 +248,44 @@ public class Camera implements Cloneable {
                 return null;
             }
         }
+    }
+
+    public Camera setAntiAliasingFactor(int factor) {
+        if (factor < 1) {
+            throw new IllegalArgumentException("Anti-aliasing factor must be 1 or greater");
+        }
+        this.antiAliasingFactor = factor;
+        return this;
+    }
+
+    private List<Ray> constructRayBeam(int nX, int nY, int j, int i) {
+        if (antiAliasingFactor == 1) {
+            return List.of(constructRay(nX, nY, j, i));
+        }
+
+        List<Ray> rays = new ArrayList<>();
+        Point pC = p0.add(vTo.scale(distance));
+        double rX = width / nX;
+        double rY = height / nY;
+        double minX = (j - (nX - 1) / 2.0) * rX;
+        double minY = (i - (nY - 1) / 2.0) * rY;
+
+        double pixelSize = rX / antiAliasingFactor;
+
+        for (int subY = 0; subY < antiAliasingFactor; subY++) {
+            for (int subX = 0; subX < antiAliasingFactor; subX++) {
+                double yI = minY + (subY + 0.5) * pixelSize;
+                double xJ = minX + (subX + 0.5) * pixelSize;
+
+                Point pIJ = pC;
+                if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
+                if (!isZero(yI)) pIJ = pIJ.add(vUp.scale(-yI));
+
+                Vector vIJ = pIJ.subtract(p0);
+                rays.add(new Ray(p0, vIJ));
+            }
+        }
+
+        return rays;
     }
 }

@@ -260,6 +260,13 @@ public class tringleCube {
 
             //endregion
 
+            Sphere s1= new Sphere(7,new Point(0,20,30));
+            s1.setEmission(new Color(75,0,150))
+                    .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
+            Polygon s2=new Polygon(new Point(0,19.9,37),new Point(0,20.1,37),new Point(0,20.1,150),new Point(0,19.9,150));
+            s2.setEmission(new Color(0,0,0));
+            scene.geometries.add(s1,s2);
+
             //region lights
             // add spotLight from the top of the picture to the floor
             SpotLight spotLight = new SpotLight(new Color(255, 255, 255), new Point(0, 0, 100), new Vector(0, 0, -1))

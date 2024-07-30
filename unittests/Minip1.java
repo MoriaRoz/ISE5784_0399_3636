@@ -2,25 +2,25 @@ import geometries.Plane;
 import geometries.Polygon;
 import geometries.Sphere;
 import geometries.Triangle;
-import lighting.*;
+import lighting.PointLight;
+import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
-import primitives.*;
+import primitives.Color;
+import primitives.Material;
+import primitives.Point;
+import primitives.Vector;
 import renderer.Camera;
 import renderer.ImageWriter;
-import renderer.RayTracerBase;
 import renderer.SimpleRayTracer;
 import scene.Scene;
-
 import static java.awt.Color.*;
+import static java.awt.Color.WHITE;
 
-/**
- * Image tests
- */
-public class ImageTests {
+public class Minip1 {
 
     @Test
-    public void rubiksCube() {
-        Scene scene = new Scene("Rubik's Cube");
+    public void Minip1() {
+        Scene scene = new Scene("Minip1");
 
         //region background
         //Right mirror plane
@@ -214,13 +214,12 @@ public class ImageTests {
         scene.geometries.add(pb1, pb2, pb3, pb4, pb5, pb6, pb7, pb8, pb9);
         //endregion
 
-
         //region triangular pyramid
         //Base triangle of the pyramid
         Triangle tB =new Triangle(new Point(27.13,-0.67,-1.13),new Point(46.4+1,12,-1.13),new Point(46.4+1,-12,-1.13));
         tB.setEmission(new Color(BLACK));
-//region smaller triangles of tB
-// Adjust the midpoints with the offset
+        //region smaller triangles of tB
+        // Adjust the midpoints with the offset
         Point m1 = new Point((29 + 46 ) / 2, (0 + 10 ) / 2, (0 + 0 ) / 2);
         Point m2 = new Point((46 + 46 ) / 2, (10 + -10 ) / 2, (0 + 0) / 2);
         Point m3 = new Point((46 + 29 ) / 2, (-10 + 0 ) / 2, (0 + 0 ) / 2);
@@ -229,7 +228,7 @@ public class ImageTests {
         Point h2 = new Point(46,10,0);
         Point h3 = new Point(46,-10,0);
 
-// Create 4 smaller triangles
+        // Create 4 smaller triangles
         Triangle smallB1 = new Triangle(h1, m1, m3);
         smallB1.setEmission(new Color(GREEN));
 
@@ -246,8 +245,8 @@ public class ImageTests {
         //Three sides of the pyramid
         Triangle t1=new Triangle(new Point(27.13,-0.67,-1.13),new Point(46.4+1,12,-1.13),new Point(39+1.2,0,19.27));
         t1.setEmission(new Color(BLACK));
-//region smaller triangles of t1
-// Adjust the midpoints with the offset
+        //region smaller triangles of t1
+        // Adjust the midpoints with the offset
         m1 = new Point((29 + 46 ) / 2-1-0.5, (0 + 10 ) / 2+0.1-0.5, (0 + 0 ) / 2-1+0.5);
         m2 = new Point((46 + 40 ) / 2-1-0.5, (10 + 0 ) / 2+0.1, (0 + 17 ) / 2-1);
         m3 = new Point((40 + 29 ) / 2-1-0.5+0.2+0.2, (0 + 0 ) / 2+0.1-0.3, (17 + 0 ) / 2-1+0.5);
@@ -256,7 +255,7 @@ public class ImageTests {
         h2 = new Point(46-1-0.5,10+0.1,0-1);
         h3 = new Point(40-1-0.5,0+0.1,17-1);
 
-// Create 4 smaller triangles
+        // Create 4 smaller triangles
         Triangle small11 = new Triangle(h1, m1, m3);
         small11.setEmission(new Color(GREEN));
 
@@ -296,8 +295,8 @@ public class ImageTests {
 
         Triangle t2=new Triangle(new Point(39+1.2,0,19.27),new Point(27.13,-0.67,-1.13),new Point(46.4+1,-12,-1.13));
         t2.setEmission(new Color(20,20,20));
-//region smaller triangles of t2
-// Adjust the midpoints with the offset
+        //region smaller triangles of t2
+        // Adjust the midpoints with the offset
         m1 = new Point((29 + 40 ) / 2, (0 + 0 ) / 2-1-0.5, (0 + 17 ) / 2-0.5);
         m2 = new Point((40 + 46 ) / 2, (0 + -10 ) / 2-1, (17 + 0 ) / 2);
         m3 = new Point((46 + 29 ) / 2, (0 + -10 ) / 2-1-0.5, (0 + 0 ) / 2-0.5);
@@ -348,8 +347,8 @@ public class ImageTests {
         //Triangle t3=new Triangle(new Point(40,0,17),new Point(46,10,0),new Point(46,-10,0));
         Triangle t3=new Triangle(new Point(39+1.2,0,19.27),new Point(46.4+1,12,-1.13),new Point(46.4+1,-12,-1.13));
         t3.setEmission(new Color(30,30,30));
-//region smaller triangles of t3
-// Adjust the midpoints with the offset
+        //region smaller triangles of t3
+        // Adjust the midpoints with the offset
 
         // Create 4 smaller triangles
 
@@ -398,7 +397,7 @@ public class ImageTests {
         small34.setEmission(new Color(YELLOW));
         //endregion
 
-// Output the smaller triangles or add them to your scene
+        // Output the smaller triangles or add them to your scene
 
         scene.geometries.add(tB,t1,t2,t3,
                 small11,small12,small13,small14,
@@ -408,12 +407,15 @@ public class ImageTests {
 
         //endregion
 
-        //region sphere
-        // Add a sphere
+        //region lamp
+        // Add a sphere as the lamp
         Sphere s1= new Sphere(7,new Point(0,20,30));
-        s1.setEmission(new Color(BLUE))
+        s1.setEmission(new Color(75,0,150))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
-        scene.geometries.add(s1);
+        // Add a rectangle as the lamp's base
+        Polygon s2=new Polygon(new Point(0,19.9,37),new Point(0,20.1,37),new Point(0,20.1,150),new Point(0,19.9,150));
+        s2.setEmission(new Color(0,0,0));
+        scene.geometries.add(s1,s2);
         //endregion
 
         //region lights
@@ -430,15 +432,16 @@ public class ImageTests {
 
         //camera
         Camera.Builder camera = Camera.getBuilder()
-                .setDirection(new Vector(-70,-70,-30), new Vector(-3,-3,14))  // שינוי כיוון המצלמה
+                .setDirection(new Vector(-70,-70,-30), new Vector(-3,-3,14))
                 .setRayTracer(new SimpleRayTracer(scene));
-        ImageWriter imageWriter = new ImageWriter("Rubik's Cube", 900, 900);
-        camera.setImageWriter(imageWriter)
-                .setLocation(new Point(70, 70, 30))  // שינוי מיקום המצלמה
-                .setVpDistance(100)
+        ImageWriter imageWriter=new ImageWriter("Minip1", 900, 900);
+        camera.setLocation(new Point(70, 70, 30))
                 .setVpSize(100, 100)
+                .setVpDistance(100)
+                .setImageWriter(imageWriter)
                 .setRayTracer(new SimpleRayTracer(scene))
                 .build()
+                .setAntiAliasingFactor(4) // Set 4x4 anti-aliasing
                 .renderImage()
                 .writeToImage();
     }
