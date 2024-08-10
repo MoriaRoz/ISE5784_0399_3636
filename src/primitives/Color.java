@@ -132,4 +132,8 @@ public class Color {
     public String toString() {
         return "rgb:" + rgb;
     }
+
+    public Double3 getRGB() {
+        return rgb;
+    }
 }

@@ -2,6 +2,7 @@ import geometries.Plane;
 import geometries.Polygon;
 import geometries.Sphere;
 import geometries.Triangle;
+import lighting.DirectionalLight;
 import lighting.PointLight;
 import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
@@ -277,6 +278,17 @@ public class tringleCube {
             PointLight pointLight = new PointLight(new Color(WHITE), new Point(0,20,30))
                     .setkL(0.001).setkQ(0.0005);
             scene.lights.add(pointLight);
+
+            scene.lights.add(new PointLight(new Color(255, 255, 224), new Point(20, -20, 20))
+                    .setkL(0.0001).setkQ(0.00001));
+
+            scene.lights.add(new SpotLight(new Color(255, 228, 196), new Point(0, 0, 30), new Vector(0, 0, -1))
+                    .setkL(0.0001).setkQ(0.00001));
+            scene.lights.add(new PointLight(new Color(173, 216, 230), new Point(-15, 15, 15))
+                    .setkL(0.0001).setkQ(0.00001));
+            scene.lights.add(new DirectionalLight(new Color(255, 255, 240), new Vector(1, -1, -1)));
+            scene.lights.add(new PointLight(new Color(255, 248, 220), new Point(0, 10, -5))
+                    .setkL(0.0001).setkQ(0.00001));
             //endregion
 
             //camera
@@ -287,7 +299,7 @@ public class tringleCube {
             camera.setImageWriter(imageWriter)
                     .setLocation(new Point(70, 70, 30))  // שינוי מיקום המצלמה
                     .setVpDistance(100)
-                    .setVpSize(100, 100)
+                    .setVpSize(100,100)
                     .setRayTracer(new SimpleRayTracer(scene))
                     .build()
                     .renderImage()

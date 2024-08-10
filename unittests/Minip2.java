@@ -15,14 +15,13 @@ import renderer.Camera;
 import renderer.ImageWriter;
 import renderer.SimpleRayTracer;
 import scene.Scene;
+
 import static java.awt.Color.*;
-import static java.awt.Color.WHITE;
 
-public class Minip1 {
-
+public class Minip2 {
     @Test
-    public void Minip1() {
-        Scene scene = new Scene("Minip1");
+    public void Minip2() {
+        Scene scene = new Scene("Minip2");
 
         //region background
         //Right mirror plane
@@ -418,27 +417,6 @@ public class Minip1 {
         Polygon s2=new Polygon(new Point(0,19.9,37),new Point(0,20.1,37),new Point(0,20.1,150),new Point(0,19.9,150));
         s2.setEmission(new Color(0,0,0));
         scene.geometries.add(s1,s2);
-
-        Sphere s3= new Sphere(5,new Point(13,8,38));
-        s3.setEmission(new Color(10,192,80))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
-        Polygon s4=new Polygon(new Point(13,7.9,43),new Point(13,8.1,43),new Point(13,8.1,150),new Point(13,7.9,150));
-        s4.setEmission(new Color(0,0,0));
-        scene.geometries.add(s3,s4);
-
-        Sphere s5= new Sphere(3,new Point(-5,30,35));
-        s5.setEmission(new Color(100,70,50))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
-        Polygon s6=new Polygon(new Point(-5,29.9,38),new Point(-5,30.1,38),new Point(-5,30.1,150),new Point(-5,29.9,150));
-        s6.setEmission(new Color(0,0,0));
-        scene.geometries.add(s5,s6);
-
-        Sphere s7= new Sphere(7,new Point(35,8,30));
-        s7.setEmission(new Color(255,163,67))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
-        Polygon s8=new Polygon(new Point(35,7.9,37),new Point(35,8.1,37),new Point(35,8.1,150),new Point(35,7.9,150));
-        s8.setEmission(new Color(0,0,0));
-        scene.geometries.add(s7,s8);
         //endregion
 
         //region lights
@@ -451,22 +429,13 @@ public class Minip1 {
         PointLight pointLight = new PointLight(new Color(WHITE), new Point(0,20,30))
                 .setkL(0.001).setkQ(0.0005);
         scene.lights.add(pointLight);
-        PointLight pointLight1 = new PointLight(new Color(WHITE), new Point(13,8,38))
-                .setkL(0.001).setkQ(0.0005);
-        scene.lights.add(pointLight1);
-        PointLight pointLight2 = new PointLight(new Color(WHITE), new Point(-5,30,35))
-                .setkL(0.01).setkQ(0.005);
-        scene.lights.add(pointLight2);
-        PointLight pointLight3 = new PointLight(new Color(WHITE), new Point(35,8,30))
-                .setkL(0.01).setkQ(0.005);
-        scene.lights.add(pointLight3);
-        //endregion
+
 
         //camera
         Camera.Builder camera = Camera.getBuilder()
                 .setDirection(new Vector(-70,-70,-30), new Vector(-3,-3,14))
                 .setRayTracer(new SimpleRayTracer(scene));
-        ImageWriter imageWriter=new ImageWriter("Minip1.5", 900, 900);
+        ImageWriter imageWriter=new ImageWriter("Minip2", 900, 900);
         camera.setLocation(new Point(70, 70, 30))
                 .setVpSize(100, 100)
                 .setVpDistance(100)
@@ -474,6 +443,8 @@ public class Minip1 {
                 .setRayTracer(new SimpleRayTracer(scene))
                 .build()
                 .setAntiAliasingFactor(4) // Set 4x4 anti-aliasing
+                .setMaxAdaptiveSamples(81) // Set maximum samples per pixel
+                .setAdaptiveThreshold(0.1) // Set adaptive threshold
                 .renderImage()
                 .writeToImage();
     }

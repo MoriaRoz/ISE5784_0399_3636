@@ -219,8 +219,8 @@ public class ImageTests {
         //Base triangle of the pyramid
         Triangle tB =new Triangle(new Point(27.13,-0.67,-1.13),new Point(46.4+1,12,-1.13),new Point(46.4+1,-12,-1.13));
         tB.setEmission(new Color(BLACK));
-//region smaller triangles of tB
-// Adjust the midpoints with the offset
+        //region smaller triangles of tB
+        // Adjust the midpoints with the offset
         Point m1 = new Point((29 + 46 ) / 2, (0 + 10 ) / 2, (0 + 0 ) / 2);
         Point m2 = new Point((46 + 46 ) / 2, (10 + -10 ) / 2, (0 + 0) / 2);
         Point m3 = new Point((46 + 29 ) / 2, (-10 + 0 ) / 2, (0 + 0 ) / 2);
@@ -229,7 +229,7 @@ public class ImageTests {
         Point h2 = new Point(46,10,0);
         Point h3 = new Point(46,-10,0);
 
-// Create 4 smaller triangles
+        // Create 4 smaller triangles
         Triangle smallB1 = new Triangle(h1, m1, m3);
         smallB1.setEmission(new Color(GREEN));
 
@@ -246,8 +246,8 @@ public class ImageTests {
         //Three sides of the pyramid
         Triangle t1=new Triangle(new Point(27.13,-0.67,-1.13),new Point(46.4+1,12,-1.13),new Point(39+1.2,0,19.27));
         t1.setEmission(new Color(BLACK));
-//region smaller triangles of t1
-// Adjust the midpoints with the offset
+        //region smaller triangles of t1
+        // Adjust the midpoints with the offset
         m1 = new Point((29 + 46 ) / 2-1-0.5, (0 + 10 ) / 2+0.1-0.5, (0 + 0 ) / 2-1+0.5);
         m2 = new Point((46 + 40 ) / 2-1-0.5, (10 + 0 ) / 2+0.1, (0 + 17 ) / 2-1);
         m3 = new Point((40 + 29 ) / 2-1-0.5+0.2+0.2, (0 + 0 ) / 2+0.1-0.3, (17 + 0 ) / 2-1+0.5);
@@ -256,7 +256,7 @@ public class ImageTests {
         h2 = new Point(46-1-0.5,10+0.1,0-1);
         h3 = new Point(40-1-0.5,0+0.1,17-1);
 
-// Create 4 smaller triangles
+        // Create 4 smaller triangles
         Triangle small11 = new Triangle(h1, m1, m3);
         small11.setEmission(new Color(GREEN));
 
@@ -296,8 +296,8 @@ public class ImageTests {
 
         Triangle t2=new Triangle(new Point(39+1.2,0,19.27),new Point(27.13,-0.67,-1.13),new Point(46.4+1,-12,-1.13));
         t2.setEmission(new Color(20,20,20));
-//region smaller triangles of t2
-// Adjust the midpoints with the offset
+        //region smaller triangles of t2
+        // Adjust the midpoints with the offset
         m1 = new Point((29 + 40 ) / 2, (0 + 0 ) / 2-1-0.5, (0 + 17 ) / 2-0.5);
         m2 = new Point((40 + 46 ) / 2, (0 + -10 ) / 2-1, (17 + 0 ) / 2);
         m3 = new Point((46 + 29 ) / 2, (0 + -10 ) / 2-1-0.5, (0 + 0 ) / 2-0.5);
@@ -348,8 +348,8 @@ public class ImageTests {
         //Triangle t3=new Triangle(new Point(40,0,17),new Point(46,10,0),new Point(46,-10,0));
         Triangle t3=new Triangle(new Point(39+1.2,0,19.27),new Point(46.4+1,12,-1.13),new Point(46.4+1,-12,-1.13));
         t3.setEmission(new Color(30,30,30));
-//region smaller triangles of t3
-// Adjust the midpoints with the offset
+        //region smaller triangles of t3
+        // Adjust the midpoints with the offset
 
         // Create 4 smaller triangles
 
@@ -398,7 +398,7 @@ public class ImageTests {
         small34.setEmission(new Color(YELLOW));
         //endregion
 
-// Output the smaller triangles or add them to your scene
+        // Output the smaller triangles or add them to your scene
 
         scene.geometries.add(tB,t1,t2,t3,
                 small11,small12,small13,small14,
@@ -411,9 +411,32 @@ public class ImageTests {
         //region sphere
         // Add a sphere
         Sphere s1= new Sphere(7,new Point(0,20,30));
-        s1.setEmission(new Color(BLUE))
+        s1.setEmission(new Color(75,0,150))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
-        scene.geometries.add(s1);
+        Polygon s2=new Polygon(new Point(0,19.9,37),new Point(0,20.1,37),new Point(0,20.1,150),new Point(0,19.9,150));
+        s2.setEmission(new Color(0,0,0));
+        scene.geometries.add(s1,s2);
+
+        Sphere s3= new Sphere(5,new Point(13,8,38));
+        s3.setEmission(new Color(10,192,80))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
+        Polygon s4=new Polygon(new Point(13,7.9,43),new Point(13,8.1,43),new Point(13,8.1,150),new Point(13,7.9,150));
+        s4.setEmission(new Color(0,0,0));
+        scene.geometries.add(s3,s4);
+
+        Sphere s5= new Sphere(3,new Point(-5,30,35));
+        s5.setEmission(new Color(100,70,50))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
+        Polygon s6=new Polygon(new Point(-5,29.9,38),new Point(-5,30.1,38),new Point(-5,30.1,150),new Point(-5,29.9,150));
+        s6.setEmission(new Color(0,0,0));
+        scene.geometries.add(s5,s6);
+
+        Sphere s7= new Sphere(7,new Point(35,8,30));
+        s7.setEmission(new Color(255,163,67))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
+        Polygon s8=new Polygon(new Point(35,7.9,37),new Point(35,8.1,37),new Point(35,8.1,150),new Point(35,7.9,150));
+        s8.setEmission(new Color(0,0,0));
+        scene.geometries.add(s7,s8);
         //endregion
 
         //region lights
@@ -426,6 +449,15 @@ public class ImageTests {
         PointLight pointLight = new PointLight(new Color(WHITE), new Point(0,20,30))
                 .setkL(0.001).setkQ(0.0005);
         scene.lights.add(pointLight);
+        PointLight pointLight1 = new PointLight(new Color(WHITE), new Point(13,8,38))
+                .setkL(0.001).setkQ(0.0005);
+        scene.lights.add(pointLight1);
+        PointLight pointLight2 = new PointLight(new Color(WHITE), new Point(-5,30,35))
+                .setkL(0.01).setkQ(0.005);
+        scene.lights.add(pointLight2);
+        PointLight pointLight3 = new PointLight(new Color(WHITE), new Point(35,8,30))
+                .setkL(0.01).setkQ(0.005);
+        scene.lights.add(pointLight3);
         //endregion
 
         //camera
