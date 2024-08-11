@@ -18,6 +18,9 @@ import static java.awt.Color.*;
  */
 public class ImageTests {
 
+    /**
+     * Creating a 3D image with a standard Hungarian cube, a triangular Hungarian cube and 4 lamps
+     */
     @Test
     public void rubiksCube() {
         Scene scene = new Scene("Rubik's Cube");
@@ -408,35 +411,42 @@ public class ImageTests {
 
         //endregion
 
-        //region sphere
-        // Add a sphere
+        //region lamps
+        // Add a sphere1
         Sphere s1= new Sphere(7,new Point(0,20,30));
         s1.setEmission(new Color(75,0,150))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
-        Polygon s2=new Polygon(new Point(0,19.9,37),new Point(0,20.1,37),new Point(0,20.1,150),new Point(0,19.9,150));
-        s2.setEmission(new Color(0,0,0));
-        scene.geometries.add(s1,s2);
+        // Add a wire to the sphere1
+        Polygon s11=new Polygon(new Point(0,19.9,37),new Point(0,20.1,37),new Point(0,20.1,150),new Point(0,19.9,150));
+        s11.setEmission(new Color(0,0,0));
+        scene.geometries.add(s1,s11);
 
-        Sphere s3= new Sphere(5,new Point(13,8,38));
-        s3.setEmission(new Color(10,192,80))
+        // Add a sphere2
+        Sphere s2= new Sphere(5,new Point(13,8,38));
+        s2.setEmission(new Color(10,192,80))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
-        Polygon s4=new Polygon(new Point(13,7.9,43),new Point(13,8.1,43),new Point(13,8.1,150),new Point(13,7.9,150));
-        s4.setEmission(new Color(0,0,0));
-        scene.geometries.add(s3,s4);
+        // Add a wire to the sphere2
+        Polygon s22=new Polygon(new Point(13,7.9,43),new Point(13,8.1,43),new Point(13,8.1,150),new Point(13,7.9,150));
+        s22.setEmission(new Color(0,0,0));
+        scene.geometries.add(s2,s22);
 
-        Sphere s5= new Sphere(3,new Point(-5,30,35));
-        s5.setEmission(new Color(100,70,50))
+        // Add a sphere3
+        Sphere s3= new Sphere(3,new Point(-5,30,35));
+        s3.setEmission(new Color(100,70,50))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
-        Polygon s6=new Polygon(new Point(-5,29.9,38),new Point(-5,30.1,38),new Point(-5,30.1,150),new Point(-5,29.9,150));
-        s6.setEmission(new Color(0,0,0));
-        scene.geometries.add(s5,s6);
+        // Add a wire to the sphere3
+        Polygon s33=new Polygon(new Point(-5,29.9,38),new Point(-5,30.1,38),new Point(-5,30.1,150),new Point(-5,29.9,150));
+        s33.setEmission(new Color(0,0,0));
+        scene.geometries.add(s3,s33);
 
-        Sphere s7= new Sphere(7,new Point(35,8,30));
-        s7.setEmission(new Color(255,163,67))
+        // Add a sphere4
+        Sphere s4= new Sphere(7,new Point(35,8,30));
+        s4.setEmission(new Color(255,163,67))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkT(0.4));
-        Polygon s8=new Polygon(new Point(35,7.9,37),new Point(35,8.1,37),new Point(35,8.1,150),new Point(35,7.9,150));
-        s8.setEmission(new Color(0,0,0));
-        scene.geometries.add(s7,s8);
+        // Add a wire to the sphere4
+        Polygon s44=new Polygon(new Point(35,7.9,37),new Point(35,8.1,37),new Point(35,8.1,150),new Point(35,7.9,150));
+        s44.setEmission(new Color(0,0,0));
+        scene.geometries.add(s4,s44);
         //endregion
 
         //region lights
@@ -445,28 +455,32 @@ public class ImageTests {
                 .setkL(0.001).setkQ(0.0005);
         scene.lights.add(spotLight);
 
-        // add pointLight from the sphere
-        PointLight pointLight = new PointLight(new Color(WHITE), new Point(0,20,30))
-                .setkL(0.001).setkQ(0.0005);
-        scene.lights.add(pointLight);
-        PointLight pointLight1 = new PointLight(new Color(WHITE), new Point(13,8,38))
+        // Add pointLight from the lamps
+        // Light from the lamp1
+        PointLight pointLight1 = new PointLight(new Color(WHITE), new Point(0,20,30))
                 .setkL(0.001).setkQ(0.0005);
         scene.lights.add(pointLight1);
-        PointLight pointLight2 = new PointLight(new Color(WHITE), new Point(-5,30,35))
-                .setkL(0.01).setkQ(0.005);
+        // Light from the lamp2
+        PointLight pointLight2 = new PointLight(new Color(WHITE), new Point(13,8,38))
+                .setkL(0.001).setkQ(0.0005);
         scene.lights.add(pointLight2);
-        PointLight pointLight3 = new PointLight(new Color(WHITE), new Point(35,8,30))
+        // Light from the lamp3
+        PointLight pointLight3 = new PointLight(new Color(WHITE), new Point(-5,30,35))
                 .setkL(0.01).setkQ(0.005);
         scene.lights.add(pointLight3);
+        // Light from the lamp4
+        PointLight pointLight4 = new PointLight(new Color(WHITE), new Point(35,8,30))
+                .setkL(0.01).setkQ(0.005);
+        scene.lights.add(pointLight4);
         //endregion
 
         //camera
         Camera.Builder camera = Camera.getBuilder()
-                .setDirection(new Vector(-70,-70,-30), new Vector(-3,-3,14))  // שינוי כיוון המצלמה
+                .setDirection(new Vector(-70,-70,-30), new Vector(-3,-3,14))
                 .setRayTracer(new SimpleRayTracer(scene));
         ImageWriter imageWriter = new ImageWriter("Rubik's Cube", 900, 900);
         camera.setImageWriter(imageWriter)
-                .setLocation(new Point(70, 70, 30))  // שינוי מיקום המצלמה
+                .setLocation(new Point(70, 70, 30))
                 .setVpDistance(100)
                 .setVpSize(100, 100)
                 .setRayTracer(new SimpleRayTracer(scene))

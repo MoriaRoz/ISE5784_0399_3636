@@ -4,7 +4,6 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingResourceException;
@@ -15,15 +14,12 @@ import static primitives.Util.isZero;
  */
 public class Camera implements Cloneable {
 
-
     private Point p0;//the location of the camera
     private Vector vUp, vTo, vRight;//the orientation of the camera
     private double width = 0.0, height = 0.0, distance = 0.0;//the size of the view plane and the distance from the camera
     private ImageWriter imageWriter;//the image writer of the camera
     private RayTracerBase rayTracer;//the ray tracer of the camera
     private int antiAliasingFactor = 1; // Default is 1 (no anti-aliasing)
-    private int maxAdaptiveSamples = 81; // Maximum number of samples per pixel
-    private double adaptiveThreshold = 0.1; // Threshold for color difference
 
     private Camera() {
     }
@@ -39,11 +35,9 @@ public class Camera implements Cloneable {
     public double getWidth() {
         return width;
     }
-
     public double getHeight() {
         return height;
     }
-
     public double getDistance() {
         return distance;
     }
@@ -96,17 +90,17 @@ public class Camera implements Cloneable {
      * @param j  the x index of the pixel
      * @param i  the y index of the pixel
      */
-//    private void castRay(int nX, int nY, int j, int i) {
-//        List<Ray> rays = constructRayBeam(nX, nY, j, i);
-//        Color pixelColor = Color.BLACK;
-//
-//        for (Ray ray : rays) {
-//            pixelColor = pixelColor.add(rayTracer.traceRay(ray));
-//        }
-//
-//        pixelColor = pixelColor.reduce(rays.size());
-//        imageWriter.writePixel(j, i, pixelColor);
-//    }
+    private void castRay(int nX, int nY, int j, int i) {
+        List<Ray> rays = constructRayBeam(nX, nY, j, i);
+        Color pixelColor = Color.BLACK;
+
+        for (Ray ray : rays) {
+            pixelColor = pixelColor.add(rayTracer.traceRay(ray));
+        }
+
+        pixelColor = pixelColor.reduce(rays.size());
+        imageWriter.writePixel(j, i, pixelColor);
+    }
 
     /**
      * paint the lines and columns of the view plane with the given color
@@ -130,6 +124,60 @@ public class Camera implements Cloneable {
      */
     public void writeToImage() {
         imageWriter.writeToImage();
+    }
+
+    /**
+     * set the anti-aliasing factor
+     *
+     * @param factor the anti-aliasing factor
+     * @return the camera
+     */
+    public Camera setAntiAliasingFactor(int factor) {
+        if (factor < 1) {
+            throw new IllegalArgumentException("Anti-aliasing factor must be 1 or greater");
+        }
+        this.antiAliasingFactor = factor;
+        return this;
+    }
+
+    /**
+     * Constructs a beam of rays from the camera to a pixel in the view plane
+     *
+     * @param nX the number of pixels in the x direction
+     * @param nY the number of pixels in the y direction
+     * @param j  the x index of the pixel
+     * @param i  the y index of the pixel
+     * @return the beam of rays from the camera to the pixel
+     */
+    private List<Ray> constructRayBeam(int nX, int nY, int j, int i) {
+        if (antiAliasingFactor == 1) {
+            return List.of(constructRay(nX, nY, j, i));
+        }
+
+        List<Ray> rays = new ArrayList<>();
+        Point pC = p0.add(vTo.scale(distance));
+        double rX = width / nX;
+        double rY = height / nY;
+        double minX = (j - (nX - 1) / 2.0) * rX;
+        double minY = (i - (nY - 1) / 2.0) * rY;
+
+        double pixelSize = rX / antiAliasingFactor;
+
+        for (int subY = 0; subY < antiAliasingFactor; subY++) {
+            for (int subX = 0; subX < antiAliasingFactor; subX++) {
+                double yI = minY + (subY + 0.5) * pixelSize;
+                double xJ = minX + (subX + 0.5) * pixelSize;
+
+                Point pIJ = pC;
+                if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
+                if (!isZero(yI)) pIJ = pIJ.add(vUp.scale(-yI));
+
+                Vector vIJ = pIJ.subtract(p0);
+                rays.add(new Ray(p0, vIJ));
+            }
+        }
+
+        return rays;
     }
 
     /**
@@ -250,138 +298,5 @@ public class Camera implements Cloneable {
                 return null;
             }
         }
-    }
-
-//    public Camera setAntiAliasingFactor(int factor) {
-//        if (factor < 1) {
-//            throw new IllegalArgumentException("Anti-aliasing factor must be 1 or greater");
-//        }
-//        this.antiAliasingFactor = factor;
-//        return this;
-//    }
-
-    private List<Ray> constructRayBeam(int nX, int nY, int j, int i) {
-        if (antiAliasingFactor == 1)
-            return List.of(constructRay(nX, nY, j, i));
-
-        List<Ray> rays = new ArrayList<>();
-        Point pC = p0.add(vTo.scale(distance));
-        double rX = width / nX;
-        double rY = height / nY;
-        double minX = (j - (nX - 1) / 2.0) * rX;
-        double minY = (i - (nY - 1) / 2.0) * rY;
-        double pixelSize = rX / antiAliasingFactor;
-
-        for (int subY = 0; subY < antiAliasingFactor; subY++) {
-            for (int subX = 0; subX < antiAliasingFactor; subX++) {
-                double yI = minY + (subY + 0.5) * pixelSize;
-                double xJ = minX + (subX + 0.5) * pixelSize;
-
-                Point pIJ = pC;
-                if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
-                if (!isZero(yI)) pIJ = pIJ.add(vUp.scale(-yI));
-
-                Vector vIJ = pIJ.subtract(p0);
-                rays.add(new Ray(p0, vIJ));
-            }
-        }
-        return rays;
-    }
-    public Camera setAntiAliasingFactor(int factor) {
-        if (factor < 1) {
-            throw new IllegalArgumentException("Anti-aliasing factor must be 1 or greater");
-        }
-        this.antiAliasingFactor = factor;
-        return this;
-    }
-
-    public Camera setMaxAdaptiveSamples(int samples) {
-        if (samples < 1) {
-            throw new IllegalArgumentException("Max adaptive samples must be 1 or greater");
-        }
-        this.maxAdaptiveSamples = samples;
-        return this;
-    }
-
-    public Camera setAdaptiveThreshold(double threshold) {
-        if (threshold <= 0 || threshold >= 1) {
-            throw new IllegalArgumentException("Adaptive threshold must be between 0 and 1");
-        }
-        this.adaptiveThreshold = threshold;
-        return this;
-    }
-
-    private void castRay(int nX, int nY, int j, int i) {
-        Color pixelColor = adaptiveSuperSampling(nX, nY, j, i);
-        imageWriter.writePixel(j, i, pixelColor);
-    }
-
-    private Color adaptiveSuperSampling(int nX, int nY, int j, int i) {
-        Point pC = p0.add(vTo.scale(distance));
-        double rX = width / nX;
-        double rY = height / nY;
-        double minX = (j - (nX - 1) / 2.0) * rX;
-        double minY = (i - (nY - 1) / 2.0) * rY;
-
-        return recursiveAdaptiveSampling(pC, minX, minY, rX, rY, 0);
-    }
-
-    private Color recursiveAdaptiveSampling(Point pC, double minX, double minY, double width, double height, int depth) {
-        if (depth >= 3 || width * height * antiAliasingFactor * antiAliasingFactor >= maxAdaptiveSamples) {
-            return sampleArea(pC, minX, minY, width, height);
-        }
-
-        Color topLeft = recursiveAdaptiveSampling(pC, minX, minY, width / 2, height / 2, depth + 1);
-        Color topRight = recursiveAdaptiveSampling(pC, minX + width / 2, minY, width / 2, height / 2, depth + 1);
-        Color bottomLeft = recursiveAdaptiveSampling(pC, minX, minY + height / 2, width / 2, height / 2, depth + 1);
-        Color bottomRight = recursiveAdaptiveSampling(pC, minX + width / 2, minY + height / 2, width / 2, height / 2, depth + 1);
-
-        if (colorDifference(topLeft, topRight, bottomLeft, bottomRight) < adaptiveThreshold) {
-            return topLeft.add(topRight).add(bottomLeft).add(bottomRight).reduce(4);
-        }
-
-        return topLeft.add(topRight).add(bottomLeft).add(bottomRight).reduce(4);
-    }
-
-    private Color sampleArea(Point pC, double minX, double minY, double width, double height) {
-        Color pixelColor = Color.BLACK;
-        double pixelWidth = width / antiAliasingFactor;
-        double pixelHeight = height / antiAliasingFactor;
-
-        for (int subY = 0; subY < antiAliasingFactor; subY++) {
-            for (int subX = 0; subX < antiAliasingFactor; subX++) {
-                double yI = minY + (subY + 0.5) * pixelHeight;
-                double xJ = minX + (subX + 0.5) * pixelWidth;
-
-                Point pIJ = pC;
-                if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
-                if (!isZero(yI)) pIJ = pIJ.add(vUp.scale(-yI));
-
-                Vector vIJ = pIJ.subtract(p0);
-                Ray ray = new Ray(p0, vIJ);
-                pixelColor = pixelColor.add(rayTracer.traceRay(ray));
-            }
-        }
-
-        return pixelColor.reduce(antiAliasingFactor * antiAliasingFactor);
-    }
-
-    private double colorDifference(Color c1, Color c2, Color c3, Color c4) {
-        double maxDifference = 0;
-        Color average = c1.add(c2, c3, c4).reduce(4);
-
-        maxDifference = Math.max(maxDifference, colorDistance(c1, average));
-        maxDifference = Math.max(maxDifference, colorDistance(c2, average));
-        maxDifference = Math.max(maxDifference, colorDistance(c3, average));
-        maxDifference = Math.max(maxDifference, colorDistance(c4, average));
-
-        return maxDifference;
-    }
-
-    private double colorDistance(Color c1, Color c2) {
-        double rDiff = c1.getRGB().getD1() - c2.getRGB().getD1();
-        double gDiff = c1.getRGB().getD2() - c2.getRGB().getD2();
-        double bDiff = c1.getRGB().getD3() - c2.getRGB().getD3();
-        return Math.sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff);
     }
 }
